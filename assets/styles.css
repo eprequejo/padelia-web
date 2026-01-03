@@ -7,9 +7,11 @@ body{
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
   color: var(--text-main);
   background:
-    radial-gradient(900px 500px at 50% 20%, rgba(111,45,189,0.22), transparent 60%),
-    radial-gradient(800px 400px at 80% 0%, rgba(111,45,189,0.10), transparent 55%),
+    radial-gradient(1150px 600px at 50% 18%, rgba(111,45,189,0.24), transparent 62%),
+    radial-gradient(950px 500px at 80% 5%, rgba(111,45,189,0.11), transparent 58%),
     var(--bg);
+
+
 }
 
 /* Fondo con “reja” sutil */
@@ -115,13 +117,19 @@ body{
 .btn:active{ transform: translateY(1px); }
 
 .btn--primary{
-  border-color: rgba(111,45,189,0.55);
-  background: linear-gradient(135deg, rgba(111,45,189,0.95), rgba(75,28,130,0.75));
-  box-shadow: 0 10px 30px rgba(111,45,189,0.18);
+  border-color: var(--padelia-purple);
+  background: var(--padelia-purple);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(111,45,189,0.25);
 }
 
 .btn--primary:hover{
-  background: linear-gradient(135deg, rgba(111,45,189,1), rgba(75,28,130,0.85));
+  background: var(--padelia-purple-dark);
+  box-shadow: 0 8px 26px rgba(111,45,189,0.30);
+}
+
+.btn--primary:active{
+  transform: translateY(1px);
 }
 
 .btn--ghost{
@@ -141,23 +149,29 @@ h1{
 }
 
 .subtitle{
-  margin: 0 auto 26px;
-  max-width: 780px;
+  margin: 12px auto 30px;
+  max-width: 820px;
   color: var(--text-muted);
-  font-size: 16px;
-  line-height: 1.55;
+  font-size: 20px;    
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+@media (max-width: 820px){
+  .subtitle{
+    font-size: 18px;
+  }
 }
 
 .chatbox{
   width: min(820px, 100%);
   margin: 0 auto;
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-lg);
-  padding: 10px;
+  padding: 0;              
+  background: transparent; 
+  border: 0;               
+  box-shadow: none;        
   display:flex;
-  gap: 10px;
+  gap: 12px;
   align-items:center;
 }
 
@@ -166,10 +180,10 @@ h1{
   display:flex;
   align-items:center;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 14px 16px;
   border-radius: 999px;
-  background: rgba(0,0,0,0.20);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.22);
+  border: 1px solid var(--border-soft);
 }
 
 .chatbox__icon{
