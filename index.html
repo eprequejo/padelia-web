@@ -1,0 +1,153 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Padelia — Tu pádel empieza con un mensaje</title>
+    <meta
+      name="description"
+      content="Padelia es tu asistente de pádel: torneos, partidos, mixings, clubes y planes. Tu pádel empieza con un mensaje."
+    />
+
+    <!-- Paleta separada -->
+    <link rel="stylesheet" href="./assets/palette.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+
+    <link rel="icon" href="./favicon.ico" />
+  </head>
+
+  <body>
+    <div class="bg"></div>
+
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="./" aria-label="Padelia">
+          <span class="brand__dot"></span>
+          <span class="brand__name">Padelia</span>
+        </a>
+
+        <nav class="nav">
+          <a href="#que-es">Qué es</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#app">App</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn btn--ghost" href="#login" aria-disabled="true">Log in</a>
+          <!-- Opción A (como ahora): baja a la sección -->
+          <a class="btn btn--primary" href="#app">Descargar app</a>
+
+          <!-- Opción B (si prefieres link directo a la PWA), usa esta y borra la de arriba:
+          <a class="btn btn--primary" href="./app/">Descargar app</a>
+          -->
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Tu pádel empieza con un mensaje.</h1>
+        <p class="subtitle">
+          Torneos, partidos, mixings, clubes y planes. Pregunta como hablarías a una persona y Padelia te lo ordena todo.
+        </p>
+
+        <div class="chatbox" role="search">
+          <div class="chatbox__inputWrap">
+            <span class="chatbox__icon" aria-hidden="true">⌁</span>
+            <input
+              id="prompt"
+              class="chatbox__input"
+              type="text"
+              placeholder="Escribe: “¿Torneos este finde cerca de Mijas?”"
+              autocomplete="off"
+            />
+          </div>
+          <button id="go" class="chatbox__btn" type="button">Chatear</button>
+        </div>
+
+        <div class="hero__links">
+          <a class="link" href="#app">Descargar la app (PWA)</a>
+          <span class="sep">·</span>
+          <a class="link" href="#que-es">Qué es Padelia</a>
+        </div>
+
+        <p class="micro">
+          *Login aún no disponible. Primero: una landing limpia. Luego: bot web + PWA.
+        </p>
+      </section>
+
+      <section id="que-es" class="section">
+        <h2>Qué es</h2>
+        <p>
+          Padelia es un asistente conversacional para tu vida de pádel: te ayuda a descubrir torneos, organizar planes,
+          entender formatos, preparar partidos y tomar decisiones rápidas sin bucear en mil webs y grupos.
+        </p>
+      </section>
+
+      <section id="como-funciona" class="section">
+        <h2>Cómo funciona</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>1) Pregunta natural</h3>
+            <p>“¿Qué torneos hay este fin de semana?”, “Necesito un mixing nivel intermedio”, “¿Dónde jugar mañana?”</p>
+          </div>
+          <div class="card">
+            <h3>2) Respuesta clara</h3>
+            <p>Resultados ordenados por fecha, ubicación, precio y enlace directo de inscripción cuando exista.</p>
+          </div>
+          <div class="card">
+            <h3>3) En web y app</h3>
+            <p>Misma experiencia tipo chat. Web primero, PWA después (instalable en móvil).</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="app" class="section section--app">
+        <h2>App (PWA)</h2>
+        <p>
+          La PWA se instala como una app normal. Pulsa “Descargar” y sigue el flujo del navegador.
+        </p>
+
+        <div class="appRow">
+          <!-- Cambia este href cuando tengas la PWA lista -->
+          <a class="btn btn--primary" href="./app/" id="downloadPwa">Descargar app (PWA)</a>
+          <a class="btn btn--ghost" href="#como-funciona">Ver cómo funciona</a>
+        </div>
+
+        <p class="micro">
+          Nota: cuando tengas el manifest + service worker, esta sección ya queda perfecta para “instalar”.
+        </p>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>© <span id="year"></span> Padelia</span>
+          <span class="sep">·</span>
+          <a class="link" href="#privacy">Privacidad</a>
+          <span class="sep">·</span>
+          <a class="link" href="#terms">Términos</a>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      const input = document.getElementById("prompt");
+      const go = document.getElementById("go");
+
+      function startChat() {
+        const q = (input.value || "").trim();
+        // Cambia esta URL cuando tengas el chat real
+        const target = "./chat/?q=" + encodeURIComponent(q);
+        window.location.href = target;
+      }
+
+      go.addEventListener("click", startChat);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") startChat();
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
