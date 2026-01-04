@@ -6,12 +6,20 @@ body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
   color: var(--text-main);
+  min-height: 100vh;
+
   background:
+    /* glow principal arriba */
     radial-gradient(1150px 600px at 50% 18%, rgba(111,45,189,0.24), transparent 62%),
     radial-gradient(950px 500px at 80% 5%, rgba(111,45,189,0.11), transparent 58%),
+
+    /* eco MUY suave abajo para que el final no "salte" */
+    radial-gradient(1100px 520px at 50% 105%, rgba(111,45,189,0.10), transparent 70%),
+
     var(--bg);
 
-
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* Fondo con “reja” sutil */
@@ -23,8 +31,24 @@ body{
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 64px 64px;
-  opacity: 1;
-  mask-image: radial-gradient(60% 40% at 50% 20%, rgba(0,0,0,0.9), transparent 70%);
+  opacity: 0.75;
+  mask-image:
+  /* Foco principal arriba-centro: laterales y esquinas se van */
+  radial-gradient(
+    70% 50% at 50% 20%,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 38%,
+    rgba(0,0,0,0.35) 62%,
+    transparent 100%
+  ),
+  /* Desaparición hacia abajo: el footer queda limpio */
+  linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 40%,
+    rgba(0,0,0,0.25) 70%,
+    transparent 100%
+  );
 }
 
 .container{
