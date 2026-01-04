@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Padelia — Asistente IA de padel</title>
+    <title>Padelia — Asistente IA de pádel</title>
     <meta
       name="description"
       content="Padelia es tu asistente de pádel: torneos, partidos, mixings, clubes y planes. Tu pádel empieza con un mensaje."
@@ -78,31 +78,92 @@
               y se encarga de encontrarlo por ti.
           </p>
           <p>           
-            Te ayuda a descubrir torneos, organizar planes, buscar partidos y te avisa cuando encanjan contigo sin visitar en mil webs y grupos.
+            Te ayuda a descubrir torneos, organizar planes, buscar partidos y te avisa cuando encajan contigo sin visitar en mil webs y grupos.
           </p>
       </section>
 
-      <section id="como-funciona" class="section">
-        <h2>Cómo funciona</h2>
-        <p>
-          <strong>No cambias tu forma de hablar. Cambias tu forma de encontrar pádel.</strong>
-        </p>
+      <section id="como-funciona" class="section section--split">
+        <div class="split">
 
-        <div class="cards">
-          <div class="card">
-            <h3>1. Pregunta natural</h3>
-            <p>“¿Qué torneos hay este fin de semana?”, “Necesito un partido nivel intermedio”, “¿Dónde podría jugar mañana?”</p>
+          <!-- COLUMNA IZQUIERDA -->
+          <div class="split__left">
+            <h2>Cómo funciona</h2>
+
+            <p>
+              <strong>No cambias tu forma de hablar. Cambias tu forma de encontrar pádel.</strong>
+            </p>
+
+            <div class="steps">
+              <div class="step">
+                <h3>1. Pregunta natural</h3>
+                <p>
+                  Habla como siempre: “¿Qué torneos hay este fin de semana?”,
+                  “Necesito un partido nivel intermedio”, “¿Dónde jugar mañana?”
+                </p>
+              </div>
+
+              <div class="step">
+                <h3>2. Respuesta clara</h3>
+                <p>
+                  Resultados ordenados por fecha, ubicación, nivel y enlace directo cuando existe.
+                </p>
+              </div>
+
+              <div class="step">
+                <h3>3. Avísame cuando encaje</h3>
+                <p>
+                  Dile a Padelia qué te interesa y ella te avisa cuando aparece un torneo
+                  o partido que encaja con tu nivel, zona y disponibilidad.
+                </p>
+              </div>
+
+            </div>
           </div>
-          <div class="card">
-            <h3>2. Respuesta clara</h3>
-            <p>Resultados ordenados por fecha, ubicación, precio y enlace directo de inscripción cuando exista.</p>
+
+          <!-- COLUMNA DERECHA -->
+          <div class="split__right">
+            <div class="chatMock">
+              <div class="chatMock__header">
+                <div class="chatMock__brand">
+                  <span class="chatMock__avatar">P</span>
+                  <span class="chatMock__title">Padelia · beta</span>
+                </div>
+                <span class="chatMock__meta">Próximamente</span>
+              </div>
+
+              <div class="chatMock__body">
+                <div class="msg msg--user">
+                  Quiero jugar este sábado por la mañana, nivel 3–3,5, por Mijas/Fuengirola.
+                </div>
+
+                <div class="msg msg--bot">
+                  Perfecto. Buscaré partidos, torneos y mixings en esa zona y nivel,
+                  y te avisaré cuando haya algo que encaje contigo.
+                </div>
+
+                <div class="msg msg--bot">
+                  De momento veo un torneo mixto el domingo por la tarde en Fuengirola.
+                  ¿Te aviso también de torneos, o solo partidos sueltos?
+                </div>
+              </div>
+
+              <div class="chatMock__composer">
+                <div class="chatMock__inputWrap">
+                  <span class="chatMock__spark">⌁</span>
+                  <input
+                    type="text"
+                    placeholder="Escribe tu mensaje…"
+                    disabled
+                  />
+                </div>
+                <button disabled>Chatear</button>
+              </div>
+            </div>
           </div>
-          <div class="card">
-            <h3>3. En web y app</h3>
-            <p>Misma experiencia tipo chat. Resultados simples y rapidos en segundos.</p>
-          </div>
+
         </div>
       </section>
+
 
       <section id="app" class="section section--app">
         <h2>La app de Padelia</h2>
