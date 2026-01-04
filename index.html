@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./assets/palette.css" />
     <link rel="stylesheet" href="./assets/styles.css" />
 
-    <link rel="icon" href="./favicon.ico" />
+    <link rel="icon" href="./assets/logo.svg" />
   </head>
 
   <body>
@@ -23,7 +23,11 @@
     <header class="topbar">
       <div class="topbar__inner">
         <a class="brand" href="./" aria-label="Padelia">
-          <span class="brand__dot"></span>
+          <img
+            src="./assets/logo.svg"
+            alt=""
+            class="brand__icon"
+            aria-hidden="true"/>
           <span class="brand__name">Padelia</span>
         </a>
 
@@ -125,7 +129,7 @@
             <div class="chatMock">
               <div class="chatMock__header">
                 <div class="chatMock__brand">
-                  <span class="chatMock__avatar">P</span>
+                  <img src="./assets/logo.svg" class="chatMock__logo" alt="" aria-hidden="true" />
                   <span class="chatMock__title">Padelia · beta</span>
                 </div>
                 <span class="chatMock__meta">Próximamente</span>
