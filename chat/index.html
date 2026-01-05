@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Padelia — Chat</title>
+
+    <!-- Reutiliza paleta -->
+    <link rel="stylesheet" href="../assets/palette.css" />
+    <link rel="stylesheet" href="./chat.css" />
+
+    <link rel="icon" href="../assets/logo.svg" />
+  </head>
+
+  <body>
+    <header class="chatTop">
+      <div class="chatTop__inner">
+        <a class="chatTop__brand" href="../" aria-label="Volver a Padelia">
+          <img src="../assets/logo.svg" class="chatTop__logo" alt="" aria-hidden="true" />
+          <span class="chatTop__name">Padelia</span>
+          <span class="chatTop__badge">beta</span>
+        </a>
+
+        <a class="chatTop__link" href="../#que-es">Qué es</a>
+      </div>
+    </header>
+
+
+    <main class="chatWrap">
+      <section class="chat" aria-label="Chat con Padelia">
+        <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
+
+          <!-- Mensaje inicial -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="composer" id="composer">
+      <form id="form" class="composer__inner" autocomplete="off">
+        <div class="composer__inputWrap">
+          <span class="composer__spark" aria-hidden="true">⌁</span>
+
+          <textarea
+            id="input"
+            class="composer__input"
+            rows="1"
+            placeholder="Escribe tu mensaje…"
+            aria-label="Escribe tu mensaje"
+            enterkeyhint="send"
+          ></textarea>
+        </div>
+
+        <button id="send" class="composer__btn" type="submit" disabled aria-label="Enviar">
+          Enviar
+        </button>
+      </form>
+    </footer>
+
+    <script>
+      const messagesEl = document.getElementById("messages");
+      const form = document.getElementById("form");
+      const input = document.getElementById("input");
+      const sendBtn = document.getElementById("send");
+
+      function escapeHtml(str) {
+        return (str || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function setEmptyMode(isEmpty) {
+        document.body.classList.toggle("chat--empty", isEmpty);
+      }
+
+      function hasRealConversation() {
+        // cuenta mensajes user/bot, si hay más de 0 user => ya no está vacío
+        return !!messagesEl.querySelector(".msgRow--user");
+      }
+
+      function autoGrow(el) {
+        el.style.height = "auto";
+        el.style.height = Math.min(el.scrollHeight, 140) + "px";
+      }
+
+      function updateSendState() {
+        const hasText = (input.value || "").trim().length > 0;
+        sendBtn.disabled = !hasText;
+      }
+
+      function addMsg(role, text) {
+        const wrap = document.createElement("div");
+        wrap.className = "msgRow " + (role === "user" ? "msgRow--user" : "msgRow--bot");
+
+        const bubble = document.createElement("div");
+        bubble.className = "msg " + (role === "user" ? "msg--user" : "msg--bot");
+        bubble.innerHTML = escapeHtml(text).replaceAll("\n", "<br/>");
+
+        wrap.appendChild(bubble);
+        messagesEl.appendChild(wrap);
+
+        // autoscroll
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+
+        // si ya hay conversación, quitamos modo vacío
+        setEmptyMode(!hasRealConversation());
+      }
+
+      function seed() {
+        // Si quieres que “vacío” sea realmente vacío (sin bubble inicial),
+        // comenta esto y deja solo placeholder + input centrado.
+        addMsg(
+          "bot",
+          "Hola, soy Padelia 👋\nDime qué te apetece jugar y yo te lo organizo.\n\nEjemplo: “Quiero jugar este sábado por la mañana por Mijas, nivel 3–3,5”."
+        );
+      }
+
+      function hydrateFromQuery() {
+        const url = new URL(window.location.href);
+        const q = (url.searchParams.get("q") || "").trim();
+        if (q) {
+          input.value = q;
+          autoGrow(input);
+          updateSendState();
+          setTimeout(() => form.requestSubmit(), 50);
+        }
+      }
+
+      function fakeReply(userText) {
+        return (
+          "Perfecto. Entendido.\n" +
+          "Ahora mismo esta pantalla es demo (sin búsqueda real todavía).\n\n" +
+          "Dime 2 cosas:\n" +
+          "1) Zona (Mijas/Fuengirola/Marbella…)\n" +
+          "2) Nivel aproximado (3, 3.5, 4…)"
+        );
+      }
+
+      // --- Init
+      setEmptyMode(true);
+      seed();
+      hydrateFromQuery();
+      input.focus();
+      autoGrow(input);
+      updateSendState();
+
+      // Input handlers
+      input.addEventListener("input", () => {
+        autoGrow(input);
+        updateSendState();
+      });
+
+      // Enter envía, Shift+Enter nueva línea (como ChatGPT)
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          if (!sendBtn.disabled) form.requestSubmit();
+        }
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const text = (input.value || "").trim();
+        if (!text) return;
+
+        addMsg("user", text);
+        input.value = "";
+        autoGrow(input);
+        updateSendState();
+        input.focus();
+
+        // typing
+        const typing = document.createElement("div");
+        typing.className = "msgRow msgRow--bot";
+        typing.innerHTML = `
+          <div class="msg msg--bot msg--typing">
+            <span class="dots"><i></i><i></i><i></i></span>
+          </div>
+        `;
+        messagesEl.appendChild(typing);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+
+        setTimeout(() => {
+          typing.remove();
+          addMsg("bot", fakeReply(text));
+        }, 450);
+      });
+    </script>
+
+  </body>
+</html>
