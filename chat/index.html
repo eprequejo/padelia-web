@@ -25,11 +25,9 @@
       </div>
     </header>
 
-
     <main class="chatWrap">
       <section class="chat" aria-label="Chat con Padelia">
         <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
-
           <!-- Mensaje inicial -->
         </div>
       </section>
@@ -75,9 +73,9 @@
         document.body.classList.toggle("chat--empty", isEmpty);
       }
 
-      function hasRealConversation() {
-        // cuenta mensajes user/bot, si hay más de 0 user => ya no está vacío
-        return !!messagesEl.querySelector(".msgRow--user");
+      // ✅ FIX: “vacío” solo cuando NO hay mensajes (ni seed)
+      function hasAnyMessage() {
+        return messagesEl.querySelector(".msgRow") !== null;
       }
 
       function autoGrow(el) {
@@ -104,13 +102,11 @@
         // autoscroll
         messagesEl.scrollTop = messagesEl.scrollHeight;
 
-        // si ya hay conversación, quitamos modo vacío
-        setEmptyMode(!hasRealConversation());
+        // ✅ FIX: si hay cualquier mensaje (incluye seed), NO es vacío
+        setEmptyMode(!hasAnyMessage());
       }
 
       function seed() {
-        // Si quieres que “vacío” sea realmente vacío (sin bubble inicial),
-        // comenta esto y deja solo placeholder + input centrado.
         addMsg(
           "bot",
           "Hola, soy Padelia 👋\nDime qué te apetece jugar y yo te lo organizo.\n\nEjemplo: “Quiero jugar este sábado por la mañana por Mijas, nivel 3–3,5”."
@@ -139,8 +135,8 @@
       }
 
       // --- Init
-      setEmptyMode(true);
-      seed();
+      setEmptyMode(true); // empieza vacío
+      seed();             // seed mete mensaje y automáticamente quita vacío
       hydrateFromQuery();
       input.focus();
       autoGrow(input);
@@ -188,6 +184,5 @@
         }, 450);
       });
     </script>
-
   </body>
 </html>

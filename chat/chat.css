@@ -2,7 +2,10 @@
 
 * { box-sizing: border-box; }
 
-html, body { height: 100%; }
+html, body{
+  height: 100%;
+  overscroll-behavior-y: none;
+}
 
 body{
   margin: 0;
@@ -21,10 +24,6 @@ body{
   margin: 0 auto;
   padding: 0 18px;
   display: flex;
-  min-height: 0;
-}
-
-.messages{
   min-height: 0;
 }
 
@@ -90,10 +89,12 @@ body{
 }
 
 .messages{
+  min-height: 0;
   width: 100%;
   overflow: auto;
   padding: 22px 0 18px;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Message rows */
@@ -219,23 +220,9 @@ body{
     0 0 0 6px rgba(111,45,189,0.12);
 }
 
-/* Hint */
-.composer__hint{
-  max-width: 980px;
-  margin: 6px auto 0;
-  padding: 0 18px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  color: var(--text-faint);
-  font-size: 12px;
-}
-.composer__hint .dot{ color: rgba(249,250,251,0.25); }
-
 @media (max-width: 720px){
   .chatWrap{ padding: 0 12px; }
   .composer__inner{ padding: 0 12px; }
-  .composer__hint{ padding: 0 12px; }
   .chatTop__inner{ padding: 10px 12px; }
 }
 
@@ -251,7 +238,6 @@ body{
   .composer{ padding: 10px 0 10px; }
   .composer__inputWrap{ padding: 12px 14px; }
   .composer__btn{ padding: 10px 14px; font-size: 13px; }
-  .composer__hint{ display: none; }
 }
 
 @media (max-width: 400px){
@@ -263,12 +249,6 @@ body{
 :root{
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-/* Evita scroll raro / rebote en iOS dentro del chat */
-html, body{
-  height: 100%;
-  overscroll-behavior-y: none;
 }
 
 .chatTop{
@@ -296,8 +276,7 @@ html, body{
 }
 
 /* ====== Estado vacío: input centrado (tipo ChatGPT) ======
-   Cuando no hay mensajes (solo seed) o cuando quieres “modo limpio”.
-   Lo controlamos con una clase en <body>: body.chat--empty
+   Solo se activa si NO hay mensajes en el chat.
 */
 body.chat--empty .chatWrap{
   align-items: center;
@@ -308,7 +287,7 @@ body.chat--empty .messages{
 }
 
 body.chat--empty .composer{
-  position: static;          
+  position: static;
   border-top: 0;
   background: transparent;
   backdrop-filter: none;
@@ -324,14 +303,8 @@ body.chat--empty .composer__inputWrap{
   border-radius: 18px;
 }
 
-/* Ajuste: cuando NO está vacío, composer sticky abajo (como ya tenías) */
+/* Ajuste: cuando NO está vacío, composer sticky abajo */
 body:not(.chat--empty) .composer{
   position: sticky;
   bottom: 0;
 }
-
-/* Mejora scroll en iOS dentro de .messages */
-.messages{
-  -webkit-overflow-scrolling: touch;
-}
-
