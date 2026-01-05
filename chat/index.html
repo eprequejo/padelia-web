@@ -36,21 +36,20 @@
     <footer class="composer" id="composer">
       <form id="form" class="composer__inner" autocomplete="off">
         <div class="composer__inputWrap">
-          <span class="composer__spark" aria-hidden="true">⌁</span>
 
           <textarea
             id="input"
             class="composer__input"
             rows="1"
-            placeholder="Escribe tu mensaje…"
-            aria-label="Escribe tu mensaje"
-            enterkeyhint="send"
-          ></textarea>
+            enterkeyhint="send">
+          </textarea>
         </div>
 
         <button id="send" class="composer__btn" type="submit" disabled aria-label="Enviar">
-          Enviar
+          <span class="composer__btnText">Enviar</span>
+          <span class="composer__btnIcon" aria-hidden="true">➤</span>
         </button>
+
       </form>
     </footer>
 
@@ -109,7 +108,7 @@
       function seed() {
         addMsg(
           "bot",
-          "Hola, soy Padelia 👋\nDime qué te apetece jugar y yo te lo organizo.\n\nEjemplo: “Quiero jugar este sábado por la mañana por Mijas, nivel 3–3,5”."
+          "Hola 👋 Soy Padelia. Tu pádel empieza aquí!!\n¿Dónde y cuándo quieres jugar?\n\nEjemplo: “Sábado por la mañana en Mijas, nivel 3, mixto”."
         );
       }
 

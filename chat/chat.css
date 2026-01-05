@@ -129,9 +129,8 @@ body{
 }
 
 /* Typing */
-.msg--typing{
-  padding: 10px 14px;
-}
+.msg--typing{ padding: 10px 14px; }
+
 .dots{
   display: inline-flex;
   gap: 5px;
@@ -182,42 +181,105 @@ body{
   border: 1px solid rgba(255,255,255,0.08);
 }
 
-.composer__spark{
-  color: var(--text-faint);
-  font-size: 14px;
-}
-
+/* textarea */
 .composer__input{
   width: 100%;
   border: 0;
   outline: 0;
   background: transparent;
   color: var(--text-main);
-  font-size: 14px;
+  font-size: 16px; /* iOS no hace zoom */
+  resize: none;
+  line-height: 1.4;
+  max-height: 140px;
+  overflow: auto;
 }
 
 .composer__input::placeholder{
   color: rgba(249,250,251,0.45);
+  font-size: 14px;
 }
 
+/* ✅ Botón primario (como landing) */
 .composer__btn{
-  border: 1px solid rgba(111,45,189,0.45);
-  background: rgba(111,45,189,0.22);
-  color: var(--text-main);
+  border: 1px solid var(--padelia-purple);
+  background: var(--padelia-purple);
+  color: #ffffff;
   padding: 12px 16px;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
+  box-shadow: 0 6px 20px rgba(111,45,189,0.25);
+  transition: transform .08s ease, background .15s ease, box-shadow .15s ease, opacity .15s ease;
 }
-.composer__btn:hover{ background: rgba(111,45,189,0.28); }
+
+.composer__btn:hover{
+  background: var(--padelia-purple-dark);
+  box-shadow: 0 8px 26px rgba(111,45,189,0.30);
+}
+
 .composer__btn:active{ transform: translateY(1px); }
 
-/* Focus limpio */
+/* ✅ Disabled: discreto, sin “primario” */
+.composer__btn:disabled{
+  opacity: .55;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.10);
+  color: rgba(249,250,251,0.70);
+}
+
+/* Focus limpio input */
 .composer__inputWrap:focus-within{
   border-color: rgba(111,45,189,0.55);
   box-shadow:
     0 0 0 1px rgba(111,45,189,0.35),
     0 0 0 6px rgba(111,45,189,0.12);
+}
+
+/* Focus accesible botón */
+.composer__btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(111,45,189,0.55),
+    0 0 0 6px rgba(111,45,189,0.20);
+}
+
+/* Safe areas (PWA/iPhone) */
+:root{
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.chatTop{ padding-top: var(--safe-top); }
+
+.composer{
+  padding-bottom: calc(10px + var(--safe-bottom));
+}
+
+/* Estado vacío: input centrado (solo si body.chat--empty está activo) */
+body.chat--empty .chatWrap{ align-items: center; }
+body.chat--empty .messages{ padding: 0; }
+
+body.chat--empty .composer{
+  position: static;
+  border-top: 0;
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0;
+}
+
+body.chat--empty .composer__inner{ padding: 0 18px; }
+
+body.chat--empty .composer__inputWrap{
+  padding: 16px 16px;
+  border-radius: 18px;
+}
+
+body:not(.chat--empty) .composer{
+  position: sticky;
+  bottom: 0;
 }
 
 @media (max-width: 720px){
@@ -245,66 +307,24 @@ body{
   .composer__btn{ padding: 10px 12px; }
 }
 
-/* Safe areas (PWA/iPhone) */
-:root{
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-.chatTop{
-  padding-top: var(--safe-top);
-}
-
-/* El footer respeta home indicator */
-.composer{
-  padding-bottom: calc(10px + var(--safe-bottom));
-}
-
-/* Importante para iOS: textarea a 16px o hace zoom */
-.composer__input{
-  font-size: 16px; /* iOS no hace zoom */
-  resize: none;
-  line-height: 1.4;
-  max-height: 140px; /* no crece infinito */
-  overflow: auto;
-}
-
-/* Botón disabled */
-.composer__btn:disabled{
-  opacity: .55;
-  cursor: not-allowed;
-}
-
-/* ====== Estado vacío: input centrado (tipo ChatGPT) ======
-   Solo se activa si NO hay mensajes en el chat.
-*/
-body.chat--empty .chatWrap{
+/* Botón con icono (mobile-first) */
+.composer__btn{
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-body.chat--empty .messages{
-  padding: 0;
+/* Por defecto: solo icono (móvil) */
+.composer__btnText{ display: none; }
+.composer__btnIcon{
+  font-size: 16px;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
-body.chat--empty .composer{
-  position: static;
-  border-top: 0;
-  background: transparent;
-  backdrop-filter: none;
-  padding: 0;
+/* En pantallas más grandes: muestra texto también */
+@media (min-width: 641px){
+  .composer__btnText{ display: inline; }
 }
 
-body.chat--empty .composer__inner{
-  padding: 0 18px;
-}
-
-body.chat--empty .composer__inputWrap{
-  padding: 16px 16px;
-  border-radius: 18px;
-}
-
-/* Ajuste: cuando NO está vacío, composer sticky abajo */
-body:not(.chat--empty) .composer{
-  position: sticky;
-  bottom: 0;
-}
