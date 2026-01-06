@@ -41,8 +41,7 @@
             id="input"
             class="composer__input"
             rows="1"
-            enterkeyhint="send">
-          </textarea>
+            enterkeyhint="send"></textarea>
         </div>
 
         <button id="send" class="composer__btn" type="submit" disabled aria-label="Enviar">
@@ -108,7 +107,7 @@
       function seed() {
         addMsg(
           "bot",
-          "Hola 👋 Soy Padelia. Tu pádel empieza aquí!!\n¿Dónde y cuándo quieres jugar?\n\nEjemplo: “Sábado por la mañana en Mijas, nivel 3, mixto”."
+          "Hola 👋 Soy Padelia.\n¿Qué torneo te apetece jugar?\n\nEjemplo: “Torneos este finde cerca de Mijas, nivel 3”."
         );
       }
 
@@ -125,11 +124,11 @@
 
       function fakeReply(userText) {
         return (
-          "Perfecto. Entendido.\n" +
-          "Ahora mismo esta pantalla es demo (sin búsqueda real todavía).\n\n" +
-          "Dime 2 cosas:\n" +
+          "Perfecto. De momento estoy en demo (sin búsqueda real todavía).\n\n" +
+          "Para afinar torneos dime:\n" +
           "1) Zona (Mijas/Fuengirola/Marbella…)\n" +
-          "2) Nivel aproximado (3, 3.5, 4…)"
+          "2) Fecha (este finde / sábado / enero…)\n" +
+          "3) Nivel (3, 3.5, 4…)"
         );
       }
 

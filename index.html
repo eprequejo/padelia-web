@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Padelia — Asistente IA de pádel</title>
+    <title>Padelia — Buscador conversacional de torneos</title>
     <meta
       name="description"
-      content="Padelia es tu asistente de pádel: torneos, partidos, mixings, clubes y planes. Tu pádel empieza con un mensaje."
+      content="Padelia te ayuda a encontrar torneos de pádel que encajan contigo. Habla como hablas y ve directo a inscribirte."
     />
 
     <!-- Paleta separada -->
@@ -53,7 +53,7 @@
       <section class="hero">
         <h1>Tu pádel empieza con un mensaje</h1>
         <p class="subtitle">
-          ¿Dónde te apetece jugar hoy?
+          ¿Qué torneo te apetece jugar?
         </p>
 
         <div class="chatbox" role="search">
@@ -62,7 +62,7 @@
               id="prompt"
               class="chatbox__input"
               type="text"
-              placeholder="“¿Torneos este finde cerca de Mijas?”"
+              placeholder="“Torneos este finde cerca de Mijas, nivel 3”"
               autocomplete="off"
             />
           </div>
@@ -74,14 +74,15 @@
       <section id="que-es" class="section">
           <h2>Qué es</h2>
           <p>
-            <strong>Padelia es la inteligencia conversacional del pádel.</strong>
+            <strong>Padelia te ayuda a encontrar torneos de pádel que encajan contigo, hablando como hablas.</strong>
           </p>
           <p>
-              No es otra app de reservas. Es un asistente que entiende lo que quieres
-              y se encarga de encontrarlo por ti.
+            No es otra app de reservas. Es un buscador conversacional que entiende
+            <strong>cuándo</strong>, <strong>dónde</strong> y <strong>a qué nivel</strong> quieres jugar,
+            y te muestra torneos reales para que vayas directo a inscribirte.
           </p>
           <p>
-            Te ayuda a descubrir torneos, organizar planes, buscar partidos y te avisa cuando encajan contigo sin visitar en mil webs y grupos.
+            <em>Próximamente:</em> podrás pedir “avísame” y Padelia te notificará cuando aparezca un torneo similar.
           </p>
       </section>
 
@@ -93,30 +94,28 @@
             <h2>Cómo funciona</h2>
 
             <p>
-              <strong>No cambias tu forma de hablar. Cambias tu forma de encontrar pádel.</strong>
+              <strong>No cambias tu forma de hablar. Cambias tu forma de encontrar torneos.</strong>
             </p>
 
             <div class="steps">
               <div class="step">
                 <h3>1. Pregunta natural</h3>
                 <p>
-                  Habla como siempre: “¿Qué torneos hay este fin de semana?”,
-                  “Necesito un partido nivel intermedio”, “¿Dónde jugar mañana?”
+                  “Torneos este fin de semana”, “Mixto nivel 3 por Málaga”, “Algo en Mijas mañana”.
                 </p>
               </div>
 
               <div class="step">
-                <h3>2. Respuesta clara</h3>
+                <h3>2. Resultados claros</h3>
                 <p>
-                  Resultados ordenados por fecha, ubicación, nivel y enlace directo cuando existe.
+                  Torneos ordenados por fecha y zona, con nivel y enlace directo cuando existe.
                 </p>
               </div>
 
               <div class="step">
-                <h3>3. Avísame cuando encaje</h3>
+                <h3>3. Ir a inscribirte</h3>
                 <p>
-                  Dile a Padelia qué te interesa y ella te avisa cuando aparece un torneo
-                  o partido que encaja con tu nivel, zona y disponibilidad.
+                  Elige uno y entra al enlace para apuntarte.
                 </p>
               </div>
 
@@ -131,22 +130,22 @@
                   <img src="./assets/logo.svg" class="chatMock__logo" alt="" aria-hidden="true" />
                   <span class="chatMock__title">Padelia · beta</span>
                 </div>
-                <span class="chatMock__meta">Próximamente</span>
+                <span class="chatMock__meta">Demo</span>
               </div>
 
               <div class="chatMock__body">
                 <div class="msg msg--user">
-                  Quiero jugar este sábado por la mañana, nivel 3–3,5, por Mijas/Fuengirola.
+                  Torneos este finde por Mijas/Fuengirola, nivel 3, mixto.
                 </div>
 
                 <div class="msg msg--bot">
-                  Perfecto. Buscaré partidos, torneos y mixings en esa zona y nivel,
-                  y te avisaré cuando haya algo que encaje contigo.
+                  Te paso 3 torneos que encajan por fecha y zona. ¿Prefieres solo mixtos o también femeninos?
                 </div>
 
                 <div class="msg msg--bot">
-                  De momento veo un torneo mixto el domingo por la tarde en Fuengirola.
-                  ¿Te aviso también de torneos, o solo partidos sueltos?
+                  1. Mixto 3 · Fuengirola · Sábado · “Inscribirme”<br/>
+                  2. Mixto 3 · Mijas · Domingo · “Inscribirme”<br/>
+                  3. Mixto 3 · Málaga · Domingo · “Inscribirme”
                 </div>
               </div>
 
