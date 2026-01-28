@@ -1,37 +1,47 @@
-/* Chat limpio — sin grid, fondo negro-ish, branding morado */
+/* chat.css — limpio y coherente con tu JS (usa .btn / .btn--primary / .btn--ghost) */
 
 * { box-sizing: border-box; }
 
+:root{
+  --composer-h: 92px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 html, body{
   height: 100%;
-  overscroll-behavior-y: none;
 }
 
 body{
   margin: 0;
-  min-height: 100dvh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
   color: var(--text-main);
   background: var(--bg);
+  overflow: hidden;
 }
 
+/* Layout */
 .chatWrap{
   flex: 1;
+  min-height: 0;
   max-width: 980px;
   width: 100%;
   margin: 0 auto;
   padding: 0 18px;
   display: flex;
-  min-height: 0;
 }
 
 .chat{
   flex: 1;
+  min-height: 0;               /* clave */
   display: flex;
+  flex-direction: column;      /* clave */
 }
 
+/* Top bar */
 .chatTop{
   position: sticky;
   top: 0;
@@ -39,6 +49,7 @@ body{
   backdrop-filter: blur(10px);
   background: rgba(11,15,25,0.72);
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding-top: var(--safe-top);
 }
 
 .chatTop__inner{
@@ -65,7 +76,10 @@ body{
   font-size: 13px;
   white-space: nowrap;
 }
-.chatTop__link:hover{ color: var(--text-main); text-decoration: underline; }
+.chatTop__link:hover{
+  color: var(--text-main);
+  text-decoration: underline;
+}
 
 .chatTop__logo{
   width: 30px;
@@ -88,27 +102,24 @@ body{
   margin-left: 6px;
 }
 
+/* Messages */
 .messages{
-  min-height: 0;
+  flex: 1;                      /* clave */
+  min-height: 0;                /* clave */
   width: 100%;
-  overflow: auto;
-  padding: 22px 0 18px;
+  overflow-y: auto;
+  padding: 22px 0 calc(18px + var(--composer-h));
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;          
-  -ms-overflow-style: none;       
+  scrollbar-width: none;
 }
+.messages::-webkit-scrollbar{ display: none; }
 
-.messages::-webkit-scrollbar{
-  display: none;
-}
-
-/* Message rows */
+/* Rows */
 .msgRow{
   display: flex;
   margin: 10px 0;
 }
-
 .msgRow--bot{ justify-content: flex-start; }
 .msgRow--user{ justify-content: flex-end; }
 
@@ -161,10 +172,13 @@ body{
 .composer{
   position: sticky;
   bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
   background: rgba(11,15,25,0.86);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 12px 0 10px;
+  padding: 12px 0 calc(10px + var(--safe-bottom));
 }
 
 .composer__inner{
@@ -206,7 +220,7 @@ body{
   font-size: 14px;
 }
 
-/* ✅ Botón primario (como landing) */
+/* Send button */
 .composer__btn{
   border: 1px solid var(--padelia-purple);
   background: var(--padelia-purple);
@@ -217,6 +231,10 @@ body{
   font-weight: 700;
   box-shadow: 0 6px 20px rgba(111,45,189,0.25);
   transition: transform .08s ease, background .15s ease, box-shadow .15s ease, opacity .15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .composer__btn:hover{
@@ -226,7 +244,6 @@ body{
 
 .composer__btn:active{ transform: translateY(1px); }
 
-/* ✅ Disabled: discreto, sin “primario” */
 .composer__btn:disabled{
   opacity: .55;
   cursor: not-allowed;
@@ -236,7 +253,7 @@ body{
   color: rgba(249,250,251,0.70);
 }
 
-/* Focus limpio input */
+/* Focus */
 .composer__inputWrap:focus-within{
   border-color: rgba(111,45,189,0.55);
   box-shadow:
@@ -244,7 +261,6 @@ body{
     0 0 0 6px rgba(111,45,189,0.12);
 }
 
-/* Focus accesible botón */
 .composer__btn:focus-visible{
   outline: none;
   box-shadow:
@@ -252,19 +268,10 @@ body{
     0 0 0 6px rgba(111,45,189,0.20);
 }
 
-/* Safe areas (PWA/iPhone) */
-:root{
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
+/* Empty mode */
+body.chat--empty{
+  overflow: hidden;
 }
-
-.chatTop{ padding-top: var(--safe-top); }
-
-.composer{
-  padding-bottom: calc(10px + var(--safe-bottom));
-}
-
-/* Estado vacío: input centrado (solo si body.chat--empty está activo) */
 body.chat--empty .chatWrap{ align-items: center; }
 body.chat--empty .messages{ padding: 0; }
 
@@ -275,19 +282,13 @@ body.chat--empty .composer{
   backdrop-filter: none;
   padding: 0;
 }
-
 body.chat--empty .composer__inner{ padding: 0 18px; }
-
 body.chat--empty .composer__inputWrap{
   padding: 16px 16px;
   border-radius: 18px;
 }
 
-body:not(.chat--empty) .composer{
-  position: sticky;
-  bottom: 0;
-}
-
+/* Responsive */
 @media (max-width: 720px){
   .chatWrap{ padding: 0 12px; }
   .composer__inner{ padding: 0 12px; }
@@ -303,7 +304,7 @@ body:not(.chat--empty) .composer{
   .messages{ padding: 16px 0 14px; }
   .msg{ max-width: 94%; padding: 11px 12px; border-radius: 14px; }
 
-  .composer{ padding: 10px 0 10px; }
+  .composer{ padding: 10px 0 calc(10px + var(--safe-bottom)); }
   .composer__inputWrap{ padding: 12px 14px; }
   .composer__btn{ padding: 10px 14px; font-size: 13px; }
 }
@@ -313,24 +314,72 @@ body:not(.chat--empty) .composer{
   .composer__btn{ padding: 10px 12px; }
 }
 
-/* Botón con icono (mobile-first) */
-.composer__btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-/* Por defecto: solo icono (móvil) */
+/* Button label/icon */
 .composer__btnText{ display: none; }
 .composer__btnIcon{
   font-size: 16px;
   line-height: 1;
   transform: translateY(-1px);
 }
-
-/* En pantallas más grandes: muestra texto también */
 @media (min-width: 641px){
   .composer__btnText{ display: inline; }
 }
+
+/* --- Action buttons (Inscribirme / Más info) --- */
+/* (Tu JS crea .actionsRow y aplica clases .btn / .btn--primary / .btn--ghost) */
+.actionsRow{
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* Evita subrayados/estilos raros del markdown dentro del bubble */
+.msg .actionsRow .btn{
+  text-decoration: none !important;
+}
+
+/* Si quieres que el ghost sea “ghost” real en chat */
+.msg .actionsRow .btn.btn--ghost{
+  background: transparent;
+}
+
+/* Dentro de burbujas del bot: no bullets */
+.msg--bot ul{
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 0;
+}
+.msg--bot li{
+  margin: 8px 0;
+  padding-left: 0;
+}
+
+.metaRow{
+  display: grid;
+  grid-template-columns: 22px 110px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.metaIcon{ opacity: .9; line-height: 1.2; }
+
+.metaLabel{
+  color: var(--text-muted);
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.metaValue{
+  color: var(--text-main);
+  font-size: 14px;
+}
+
 

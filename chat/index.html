@@ -7,9 +7,13 @@
 
     <!-- Reutiliza paleta -->
     <link rel="stylesheet" href="../assets/palette.css" />
+    <link rel="stylesheet" href="../assets/styles.css" />
     <link rel="stylesheet" href="./chat.css" />
 
     <link rel="icon" href="../assets/logo.svg" />
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="module" src="./chat.js"></script>
   </head>
 
   <body>
@@ -52,135 +56,5 @@
       </form>
     </footer>
 
-    <script>
-      const messagesEl = document.getElementById("messages");
-      const form = document.getElementById("form");
-      const input = document.getElementById("input");
-      const sendBtn = document.getElementById("send");
-
-      function escapeHtml(str) {
-        return (str || "")
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
-      }
-
-      function setEmptyMode(isEmpty) {
-        document.body.classList.toggle("chat--empty", isEmpty);
-      }
-
-      // ✅ FIX: “vacío” solo cuando NO hay mensajes (ni seed)
-      function hasAnyMessage() {
-        return messagesEl.querySelector(".msgRow") !== null;
-      }
-
-      function autoGrow(el) {
-        el.style.height = "auto";
-        el.style.height = Math.min(el.scrollHeight, 140) + "px";
-      }
-
-      function updateSendState() {
-        const hasText = (input.value || "").trim().length > 0;
-        sendBtn.disabled = !hasText;
-      }
-
-      function addMsg(role, text) {
-        const wrap = document.createElement("div");
-        wrap.className = "msgRow " + (role === "user" ? "msgRow--user" : "msgRow--bot");
-
-        const bubble = document.createElement("div");
-        bubble.className = "msg " + (role === "user" ? "msg--user" : "msg--bot");
-        bubble.innerHTML = escapeHtml(text).replaceAll("\n", "<br/>");
-
-        wrap.appendChild(bubble);
-        messagesEl.appendChild(wrap);
-
-        // autoscroll
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-
-        // ✅ FIX: si hay cualquier mensaje (incluye seed), NO es vacío
-        setEmptyMode(!hasAnyMessage());
-      }
-
-      function seed() {
-        addMsg(
-          "bot",
-          "Hola 👋 Soy Padelia.\n¿Qué torneo te apetece jugar?\n\nEjemplo: “Torneos este finde cerca de Mijas, nivel 3”."
-        );
-      }
-
-      function hydrateFromQuery() {
-        const url = new URL(window.location.href);
-        const q = (url.searchParams.get("q") || "").trim();
-        if (q) {
-          input.value = q;
-          autoGrow(input);
-          updateSendState();
-          setTimeout(() => form.requestSubmit(), 50);
-        }
-      }
-
-      function fakeReply(userText) {
-        return (
-          "Perfecto. De momento estoy en demo (sin búsqueda real todavía).\n\n" +
-          "Para afinar torneos dime:\n" +
-          "1) Zona (Mijas/Fuengirola/Marbella…)\n" +
-          "2) Fecha (este finde / sábado / enero…)\n" +
-          "3) Nivel (3, 3.5, 4…)"
-        );
-      }
-
-      // --- Init
-      setEmptyMode(true); // empieza vacío
-      seed();             // seed mete mensaje y automáticamente quita vacío
-      hydrateFromQuery();
-      input.focus();
-      autoGrow(input);
-      updateSendState();
-
-      // Input handlers
-      input.addEventListener("input", () => {
-        autoGrow(input);
-        updateSendState();
-      });
-
-      // Enter envía, Shift+Enter nueva línea (como ChatGPT)
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-          e.preventDefault();
-          if (!sendBtn.disabled) form.requestSubmit();
-        }
-      });
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const text = (input.value || "").trim();
-        if (!text) return;
-
-        addMsg("user", text);
-        input.value = "";
-        autoGrow(input);
-        updateSendState();
-        input.focus();
-
-        // typing
-        const typing = document.createElement("div");
-        typing.className = "msgRow msgRow--bot";
-        typing.innerHTML = `
-          <div class="msg msg--bot msg--typing">
-            <span class="dots"><i></i><i></i><i></i></span>
-          </div>
-        `;
-        messagesEl.appendChild(typing);
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-
-        setTimeout(() => {
-          typing.remove();
-          addMsg("bot", fakeReply(text));
-        }, 450);
-      });
-    </script>
   </body>
 </html>
