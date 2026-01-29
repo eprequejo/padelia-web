@@ -12,7 +12,9 @@ function updateSendState() {
 
 function seed() {
   addMsg(messagesEl, "bot",
-    "Hola 👋 Soy Padelia tu asistente de padel.\n¿Qué torneo te apetece jugar?\n\nEjemplo: “Torneos este finde cerca de Mijas, nivel 3”."
+    "Hola 👋 Soy Padelia.\n\n" +
+    "Dime qué te apetece jugar y dónde, y busco torneos para ti.\n\n" +
+    "Ejemplos: “este finde cerca de Mijas, nivel 3” · “mixto por Málaga en febrero”."
   );
 }
 

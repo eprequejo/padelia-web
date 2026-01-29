@@ -4,16 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Padelia — Buscador conversacional de torneos</title>
+    <title>Padelia — Buscador de torneos de pádel</title>
     <meta
       name="description"
-      content="Padelia te ayuda a encontrar torneos de pádel que encajan contigo. Habla como hablas y ve directo a inscribirte."
+      content="Padelia te ayuda a encontrar torneos y planes de pádel sin perder tiempo saltando entre apps. Dilo como lo dirías y ve directo a inscribirte."
     />
 
-    <!-- Paleta separada -->
     <link rel="stylesheet" href="./assets/palette.css" />
     <link rel="stylesheet" href="./assets/styles.css" />
-
     <link rel="icon" href="./assets/logo.svg" />
   </head>
 
@@ -23,12 +21,9 @@
     <header class="topbar">
       <div class="topbar__inner">
         <a class="brand" href="./" aria-label="Padelia">
-          <img
-            src="./assets/logo.svg"
-            alt=""
-            class="brand__icon"
-            aria-hidden="true"/>
+          <img src="./assets/logo.svg" alt="" class="brand__icon" aria-hidden="true" />
           <span class="brand__name">Padelia</span>
+          <span class="brand__badge">beta</span>
         </a>
 
         <nav class="nav">
@@ -39,12 +34,7 @@
 
         <div class="actions">
           <a class="btn btn--ghost" href="#login" aria-disabled="true">Log in</a>
-          <!-- Opción A (como ahora): baja a la sección -->
           <a class="btn btn--primary" href="#app">Descargar app</a>
-
-          <!-- Opción B (si prefieres link directo a la PWA), usa esta y borra la de arriba:
-          <a class="btn btn--primary" href="./app/">Descargar app</a>
-          -->
         </div>
       </div>
     </header>
@@ -53,7 +43,8 @@
       <section class="hero">
         <h1>Tu pádel empieza con un mensaje</h1>
         <p class="subtitle">
-          ¿Qué torneo te apetece jugar?
+          Deja de saltar entre apps para encontrar torneos de pádel.
+          Dime zona, fecha y nivel ... <br/>¿qué te apetece jugar?
         </p>
 
         <div class="chatbox" role="search">
@@ -69,27 +60,34 @@
           <button id="go" class="chatbox__btn" type="button">Chatear</button>
         </div>
 
+        <p class="hero__hint">
+          Pensado para jugadores <strong>amateur</strong>. Rápido, simple y directo a lo importante.
+        </p>
       </section>
 
       <section id="que-es" class="section">
-          <h2>Qué es</h2>
-          <p>
-            <strong>Padelia te ayuda a encontrar torneos de pádel que encajan contigo, hablando como hablas.</strong>
-          </p>
-          <p>
-            Padelia nace para unificar todas las plataformas de padel. No es otra app de reservas. Es un buscador conversacional que entiende
-            <strong>cuándo</strong>, <strong>dónde</strong> y <strong>a qué nivel</strong> quieres jugar,
-            y te muestra torneos reales para que vayas directo a inscribirte.
-          </p>
-          <p>
-            <em>Próximamente:</em> podrás pedir “avísame” y Padelia te notificará cuando aparezca un torneo similar.
-          </p>
+        <h2>Qué es</h2>
+
+        <p>
+          <strong>Padelia te ayuda a encontrar torneos y planes de pádel sin perder tiempo buscando en mil apps.</strong>
+        </p>
+
+        <p>
+          Tú dices lo que quieres (zona, fecha, nivel) y Padelia te muestra opciones claras
+          para que puedas ir <strong>directo a inscribirte</strong>.
+        </p>
+
+        <p>
+          <em>Estamos en beta:</em> si algo no te encaja, dímelo. Ese feedback vale oro 💜
+        </p>
+
+        <p>
+          <em>Próximamente:</em> podrás escribir “avísame” y Padelia te avisará cuando salga un torneo parecido.
+        </p>
       </section>
 
       <section id="como-funciona" class="section section--split">
         <div class="split">
-
-          <!-- COLUMNA IZQUIERDA -->
           <div class="split__left">
             <h2>Cómo funciona</h2>
 
@@ -99,30 +97,22 @@
 
             <div class="steps">
               <div class="step">
-                <h3>1. Pregunta natural</h3>
-                <p>
-                  “Torneos este fin de semana”, “Mixto nivel 3 por Málaga”, “Algo en Mijas mañana”.
-                </p>
+                <h3>1. Pide lo que te apetece</h3>
+                <p>“Este finde”, “mixto”, “nivel 3”, “cerca de mí”, “por Málaga”, “mañana”.</p>
               </div>
 
               <div class="step">
-                <h3>2. Resultados claros</h3>
-                <p>
-                  Torneos ordenados por fecha y zona, con nivel y enlace directo cuando existe.
-                </p>
+                <h3>2. Recibe opciones claras</h3>
+                <p>Nombre, fecha, zona, nivel/categorías y enlace cuando existe.</p>
               </div>
 
               <div class="step">
-                <h3>3. Ir a inscribirte</h3>
-                <p>
-                  Elige uno y entra al enlace para apuntarte.
-                </p>
+                <h3>3. Entra y apúntate</h3>
+                <p>Un clic y estás en el sitio correcto para inscribirte o ver más info.</p>
               </div>
-
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA -->
           <div class="split__right">
             <div class="chatMock">
               <div class="chatMock__header">
@@ -139,30 +129,26 @@
                 </div>
 
                 <div class="msg msg--bot">
-                  Te paso 3 torneos que encajan por fecha y zona. ¿Prefieres solo mixtos o también femeninos?
+                  Te paso 3 opciones por fecha y zona. ¿Prefieres solo mixtos o también femeninos?
                 </div>
 
                 <div class="msg msg--bot">
-                  1. Mixto 3 · Fuengirola · Sábado · “Inscribirme”<br/>
-                  2. Mixto 3 · Mijas · Domingo · “Inscribirme”<br/>
-                  3. Mixto 3 · Málaga · Domingo · “Inscribirme”
+                  1) Mixto nivel 3 · Fuengirola · Sábado · <strong>Inscribirme</strong><br/>
+                  2) Mixto nivel 3 · Mijas · Domingo · <strong>Inscribirme</strong><br/>
+                  3) Mixto nivel 3 · Málaga · Domingo · <strong>Inscribirme</strong>
                 </div>
               </div>
 
               <div class="chatMock__composer">
                 <div class="chatMock__inputWrap">
-                  <input
-                    type="text"
-                    disabled/>
+                  <input type="text" disabled />
                 </div>
                 <button disabled>Chatear</button>
               </div>
             </div>
           </div>
-
         </div>
       </section>
-
 
       <section id="app" class="section section--app">
         <h2>La app de Padelia</h2>
@@ -194,7 +180,6 @@
 
       function startChat() {
         const q = (input.value || "").trim();
-        // Cambia esta URL cuando tengas el chat real
         const target = "./chat/?q=" + encodeURIComponent(q);
         window.location.href = target;
       }
