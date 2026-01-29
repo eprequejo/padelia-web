@@ -382,4 +382,8 @@ body.chat--empty .composer__inputWrap{
   font-size: 14px;
 }
 
+.msg .actionsRow .btn--primary::after{
+  content: " →";
+}
+
 
