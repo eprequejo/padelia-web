@@ -8,10 +8,7 @@ function iconFor(label){
   if (t.includes("cuándo")) return "📅";
   if (t.includes("dónde")) return "📍";
   if (t.includes("categor")) return "🏷️";
-  if (t.includes("precio")) return "💶";
-  if (t.includes("pistas")) return "🎾";
-  if (t.includes("servicios")) return "✨";
-  if (t.includes("teléfono") || t.includes("telefono")) return "📞";
+  if (t.includes("precio")) return "💰";
   return "•";
 }
 
@@ -21,6 +18,98 @@ function cleanLabel(raw){
     .replaceAll("?", "")
     .replaceAll(":", "")
     .trim();
+}
+
+// 🎨 Helpers para formatear fechas
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  
+  try {
+    const date = new Date(dateStr + "T00:00:00");
+    const weekday = date.toLocaleDateString("es-ES", { weekday: "short" });
+    const day = date.getDate();
+    const month = date.toLocaleDateString("es-ES", { month: "long" });
+    
+    const weekdayCapitalized = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+    
+    return `${weekdayCapitalized} ${day} de ${month}`;
+  } catch (e) {
+    return dateStr;
+  }
+}
+
+function formatDateRange(start, end) {
+  if (!start) return "";
+  if (!end || start === end) return formatDate(start);
+  
+  try {
+    const startDate = new Date(start + "T00:00:00");
+    const endDate = new Date(end + "T00:00:00");
+    
+    const startWeekday = startDate.toLocaleDateString("es-ES", { weekday: "short" });
+    const startDay = startDate.getDate();
+    
+    const endWeekday = endDate.toLocaleDateString("es-ES", { weekday: "short" });
+    const endDay = endDate.getDate();
+    const endMonth = endDate.toLocaleDateString("es-ES", { month: "long" });
+    
+    const startCapitalized = startWeekday.charAt(0).toUpperCase() + startWeekday.slice(1);
+    const endCapitalized = endWeekday.charAt(0).toUpperCase() + endWeekday.slice(1);
+    
+    // Mismo mes
+    if (startDate.getMonth() === endDate.getMonth()) {
+      return `${startCapitalized} ${startDay} - ${endCapitalized} ${endDay} de ${endMonth}`;
+    }
+    
+    // Meses diferentes
+    const startMonth = startDate.toLocaleDateString("es-ES", { month: "long" });
+    return `${startCapitalized} ${startDay} de ${startMonth} - ${endCapitalized} ${endDay} de ${endMonth}`;
+    
+  } catch (e) {
+    return `${start} - ${end}`;
+  }
+}
+
+function formatCategories(categoriesStr) {
+  if (!categoriesStr) return "";
+  
+  const cats = categoriesStr.toLowerCase().split(",").map(c => c.trim());
+  
+  const masc = [];
+  const fem = [];
+  const mixto = [];
+  
+  cats.forEach(cat => {
+    // Extraer el número/nivel
+    const match = cat.match(/(\d+[ab]?)/i);
+    if (!match) return;
+    
+    const level = match[1].toUpperCase();
+    
+    if (cat.includes("masculin")) {
+      masc.push(level);
+    } else if (cat.includes("femenin")) {
+      fem.push(level);
+    } else if (cat.includes("mixto")) {
+      mixto.push(level);
+    }
+  });
+  
+  const parts = [];
+  
+  if (masc.length) {
+    parts.push(`Masc: ${masc.join(", ")}`);
+  }
+  
+  if (fem.length) {
+    parts.push(`Fem: ${fem.join(", ")}`);
+  }
+  
+  if (mixto.length) {
+    parts.push(`Mixto: ${mixto.join(", ")}`);
+  }
+  
+  return parts.join(" · ");
 }
 
 /**
@@ -42,32 +131,27 @@ export function enhanceActionButtons(bubble) {
     actionLinks.sort((a, b) => (norm(a.textContent) === "inscribirme" ? -1 : 1));
 
     actionLinks.forEach((a) => {
-    const t = norm(a.textContent);
-
-    // 👉 Primary logic:
-    // - Inscribirme siempre es primary
-    // - Si NO hay "Inscribirme", entonces "Más info" (club) es primary
-    const hasInscribirme = actionLinks.some(
-        (x) => norm(x.textContent) === "inscribirme"
-    );
-
-    const isPrimary =
-        t === "inscribirme" ||
-        (t === "más info" && !hasInscribirme);
-
-    a.classList.add("btn");
-    a.classList.toggle("btn--primary", isPrimary);
-    a.classList.toggle("btn--ghost", !isPrimary);
-
-    // 👉 Copy orientado a negocio: clubs = "Ver club"
-    if (t === "más info" && !hasInscribirme) {
-        a.textContent = "Ver club";
-    }
-
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-
-    row.appendChild(a);
+      const t = norm(a.textContent);
+      
+      // Solo "Inscribirme" es primary (torneos only)
+      const isPrimary = (t === "inscribirme");
+      
+      a.classList.add("btn");
+      a.classList.toggle("btn--primary", isPrimary);
+      a.classList.toggle("btn--ghost", !isPrimary);
+      
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      
+      // TRACKING
+      a.addEventListener('click', () => {
+        if (window.plausible) {
+          plausible('Signup Click', { props: { url: a.href }});
+        }
+        console.log('[Analytics] Signup Click:', a.href);
+      });
+      
+      row.appendChild(a);
     });
 
     el.textContent = "";
@@ -76,13 +160,11 @@ export function enhanceActionButtons(bubble) {
 }
 
 /**
- * Convierte filas tipo "¿Cuándo?/¿Dónde?/Pistas/Servicios/Teléfono/..." en .metaRow
- * Importante: se ejecuta tras marked.parse(text)
+ * Convierte filas tipo "¿Cuándo?/¿Dónde?/Categorías/Precio mínimo" en .metaRow
  */
 export function enhanceMetaRows(bubble){
   if (!bubble.closest(".msg--bot")) return;
 
-  // ⬅️ Aquí está la magia: clubs a veces viene en <p>, no en <li>
   const nodes = Array.from(bubble.querySelectorAll("li, p"));
 
   for (const node of nodes) {
@@ -108,17 +190,15 @@ export function enhanceMetaRows(bubble){
     const label = cleanLabel(rawLabel);
     const ln = norm(label);
 
-    // Labels soportados (torneos + clubs)
+    // Solo labels de torneos
     const allowed = [
       "cuándo",
       "dónde",
       "categorías",
+      "categoria",
       "precio mínimo",
-      "pistas",
-      "servicios",
-      "teléfono",
-      "telefono",
-    ].some((k) => ln.startsWith(k));
+      "precio",
+    ].some((k) => ln.includes(k));
 
     if (!allowed) continue;
 
@@ -136,15 +216,27 @@ export function enhanceMetaRows(bubble){
 
     const val = document.createElement("span");
     val.className = "metaValue";
-
-    // Teléfono clickable
-    if (ln.startsWith("tel")) {
-      const num = value.replace(/[^\d+]/g, "");
-      const a = document.createElement("a");
-      a.href = `tel:${num}`;
-      a.textContent = value;
-      a.className = "metaLink";
-      val.appendChild(a);
+    
+    // 🎨 FORMATEAR SEGÚN TIPO
+    if (ln.includes("cuándo")) {
+      // Detectar formato: "2026-02-06 - 2026-02-08" (actual del backend)
+      if (value.includes("|")) {
+        const parts = value.split("|");
+        if (parts.length === 2) {
+          val.textContent = formatDateRange(parts[0].trim(), parts[1].trim());
+        } else {
+          val.textContent = formatDate(value);
+        }
+      } else {
+        val.textContent = formatDate(value);
+      }
+    } else if (ln.includes("precio")) {
+      // Limpiar y añadir símbolo €
+      const cleanPrice = value.replace(/[^\d.,]/g, "");
+      const price = parseFloat(cleanPrice);
+      val.textContent = isNaN(price) ? value : `${price}€`;
+    } else if (ln.includes("categor")) {
+        val.textContent = formatCategories(value);
     } else {
       val.textContent = value;
     }
