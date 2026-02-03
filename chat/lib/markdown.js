@@ -1,5 +1,8 @@
 // chat/lib/markdown.js
 
+import { trackEvent } from "./analytics.js";
+import { getUserId, getThreadId } from "./storage.js";
+
 const norm = (s) => (s || "").trim().toLowerCase();
 const isAction = (t) => t === "inscribirme" || t === "más info" || t === "mas info";
 
@@ -112,6 +115,25 @@ function formatCategories(categoriesStr) {
   return parts.join(" · ");
 }
 
+// Helper para añadir UTM tracking a URLs
+function addUTMParams(url) {
+  if (!url) return url;
+  
+  try {
+    const urlObj = new URL(url);
+    
+    // Parámetros UTM
+    urlObj.searchParams.set('utm_source', 'padelia');
+    urlObj.searchParams.set('utm_medium', 'chat');
+    urlObj.searchParams.set('utm_campaign', 'mvp');
+    
+    return urlObj.toString();
+  } catch (e) {
+    // Si la URL es inválida, devolver tal cual
+    return url;
+  }
+}
+
 /**
  * Convierte links bajo "Acciones:" en botones (.btn/.btn--primary/.btn--ghost)
  */
@@ -140,15 +162,29 @@ export function enhanceActionButtons(bubble) {
       a.classList.toggle("btn--primary", isPrimary);
       a.classList.toggle("btn--ghost", !isPrimary);
       
+      // Añadir UTMs a la URL
+      const originalUrl = a.href;
+      a.href = addUTMParams(originalUrl);
+      
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       
       // TRACKING
       a.addEventListener('click', () => {
+        // Enviar a Google Sheets
+        trackEvent({
+          action: t,
+          url: originalUrl,
+          user_id: getUserId(),
+          thread_id: getThreadId()
+        });
+        
+        // Plausible (si existe)
         if (window.plausible) {
-          plausible('Signup Click', { props: { url: a.href }});
+          plausible('Signup Click', { props: { url: originalUrl }});
         }
-        console.log('[Analytics] Signup Click:', a.href);
+        
+        console.log('[Analytics] Click:', t, 'URL:', a.href);
       });
       
       row.appendChild(a);
