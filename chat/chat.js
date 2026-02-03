@@ -1,5 +1,7 @@
 import { callApi } from "./lib/api.js";
 import { addMsg, addTyping, autoGrow, setEmptyMode } from "./lib/ui.js";
+import { trackEvent } from "./lib/analytics.js";
+import { getUserId, getThreadId } from "./lib/storage.js";
 
 const messagesEl = document.getElementById("messages");
 const form = document.getElementById("form");
@@ -65,13 +67,16 @@ form.addEventListener("submit", async (e) => {
   try {
     const data = await callApi(text);
     console.log("API response:", data);
+    
     typing.remove();
     addMsg(messagesEl, "bot", data.answer || "No he podido generar respuesta.");
-  } catch (err) {
+    
+    } catch (err) {
     typing.remove();
     addMsg(messagesEl, "bot",
-      "Uff, ahora mismo no puedo conectar con el servidor 😅\n\nPrueba en un momento o revisa que el API esté levantado."
+        "Uff, ahora mismo no puedo conectar con el servidor 😅\n\nPrueba en un momento o revisa que el API esté levantado."
     );
     console.error(err);
-  }
+    }
+
 });

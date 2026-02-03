@@ -1,6 +1,6 @@
 // chat/lib/analytics.js
 
-const ANALYTICS_URL = 'https://script.google.com/macros/s/AKfycbwRvTKRflCZ21qdjSJQb-fLl6QdnCqAbCjzWyNMpt7vVEqN7vx1Q-8RiRJ4Eh1fPhnl/exec';
+const ANALYTICS_URL = 'https://script.google.com/macros/s/AKfycbw1_3tCrNfKmdvQOmjpwOeoWUPxQytBgVtNj7HkqTeSgBWjkoCLjz2cGdH5kIWIMBdo/exec';
 
 export async function trackEvent(data) {
   try {

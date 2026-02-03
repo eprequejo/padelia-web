@@ -155,7 +155,6 @@ export function enhanceActionButtons(bubble) {
     actionLinks.forEach((a) => {
       const t = norm(a.textContent);
       
-      // Solo "Inscribirme" es primary (torneos only)
       const isPrimary = (t === "inscribirme");
       
       a.classList.add("btn");
@@ -169,11 +168,47 @@ export function enhanceActionButtons(bubble) {
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       
-      // TRACKING
+      // TRACKING - Extraer contexto del torneo
       a.addEventListener('click', () => {
+        const msgBubble = a.closest('.msg--bot');
+        let tournamentName = 'unknown';
+        let city = 'unknown';
+        
+        if (msgBubble) {
+          // Buscar nombre del torneo (primer <strong> del mensaje)
+          const strongs = Array.from(msgBubble.querySelectorAll('strong'));
+          for (const strong of strongs) {
+            const text = strong.textContent.trim();
+            // Evitar capturar etiquetas de metadata (¿Cuándo?, etc)
+            if (!text.includes('¿') && text.length > 5) {
+              tournamentName = text;
+              break;
+            }
+          }
+          
+          // Buscar ciudad en metaRows
+          const metaRows = msgBubble.querySelectorAll('.metaRow');
+          metaRows.forEach(metaRow => {
+            const label = metaRow.querySelector('.metaLabel')?.textContent || '';
+            if (label.toLowerCase().includes('dónde')) {
+              const whereValue = metaRow.querySelector('.metaValue')?.textContent || '';
+              // Extraer ciudad: "Fuengirola Padel · fuengirola, malaga" → "fuengirola"
+              const parts = whereValue.split('·');
+              if (parts.length > 1) {
+                city = parts[1].split(',')[0].trim();
+              } else {
+                city = parts[0].split(',')[0].trim();
+              }
+            }
+          });
+        }
+        
         // Enviar a Google Sheets
         trackEvent({
+          event_type: 'click_action',
           action: t,
+          tournament_name: tournamentName,
+          city: city,
           url: originalUrl,
           user_id: getUserId(),
           thread_id: getThreadId()
@@ -184,7 +219,7 @@ export function enhanceActionButtons(bubble) {
           plausible('Signup Click', { props: { url: originalUrl }});
         }
         
-        console.log('[Analytics] Click:', t, 'URL:', a.href);
+        console.log('[Analytics] Click:', t, '|', tournamentName, '|', city, '|', originalUrl);
       });
       
       row.appendChild(a);

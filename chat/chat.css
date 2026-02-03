@@ -360,11 +360,7 @@ body.chat--empty .composer__inputWrap{
   grid-template-columns: 22px 110px 1fr;
   gap: 10px;
   align-items: start;
-  padding: 10px 12px;
-  margin-top: 8px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  padding: 5px 6px;
 }
 
 .metaIcon{ opacity: .9; line-height: 1.2; }
@@ -386,4 +382,83 @@ body.chat--empty .composer__inputWrap{
   content: " →";
 }
 
+.tournament-name:first-child {
+  margin-top: 0;
+}
 
+.tournament-name:last-child {
+  margin-bottom: 0;
+}
+.tournament-name strong, .tournament-name h2, .tournament-name h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--padelia-purple);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ===== SEPARADORES ENTRE TORNEOS ===== */
+.tournament-separator {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Contenedor del nombre del torneo */
+.tournament-name {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.tournament-name:first-child {
+  margin-top: 0;
+}
+
+.tournament-name:last-child {
+  margin-bottom: 0;
+}
+
+.tournament-name strong,
+.tournament-name h2,
+.tournament-name h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: var(--padelia-purple);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Nombres de torneos clickeables */
+.tournament-title-link {
+  color: var(--padelia-purple);
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.tournament-title-link:hover {
+  color: var(--padelia-purple-dark);
+  text-decoration: underline;
+}
+
+/* Espaciado mejorado entre secciones */
+.msg--bot strong,
+.msg--bot h2,
+.msg--bot h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .tournament-separator {
+    margin: 1.5rem 0;
+  }
+  
+  .tournament-name strong,
+  .tournament-name h2,
+  .tournament-name h3 {
+    font-size: 1rem;
+  }
+}
