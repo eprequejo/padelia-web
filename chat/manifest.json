@@ -3,6 +3,7 @@
   "short_name": "Padelia",
   "description": "Encuentra tu próximo torneo de pádel",
   "start_url": "/padelia-web/chat/",
+  "scope": "/padelia-web/chat/",
   "display": "standalone",
   "background_color": "#0B0F19",
   "theme_color": "#6F2DBD",
