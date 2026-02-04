@@ -179,8 +179,20 @@
           Padelia funciona como una app normal. Pulsa “Descargar” y añádela a tu móvil desde el navegador.
         </p>
         <div class="appRow">
-          <a class="btn btn--primary" href="./app/" id="downloadPwa">Descargar app</a>
+          <a class="btn btn--primary" href="./chat/" id="downloadPwa">Descargar app</a>
           <a class="btn btn--ghost" href="#como-funciona">Ver cómo funciona</a>
+          <!-- Toast para iOS -->
+          <div id="iosInstallToast" class="install-toast" hidden>
+            <div class="install-toast__content">
+              <strong>Instalar Padelia</strong>
+              <p>
+                1. Toca el botón <strong>Compartir</strong> 
+                <svg width="16" height="16" fill="currentColor"><use href="#icon-share"/></svg>
+              </p>
+              <p>2. Selecciona <strong>"Añadir a inicio"</strong></p>
+              <button class="install-toast__close">Entendido</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -255,6 +267,62 @@
       });
 
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // PWA Installation Logic
+      let deferredPrompt;
+      const downloadBtn = document.getElementById('downloadPwa');
+      const iosToast = document.getElementById('iosInstallToast');
+
+      // Detectar si ya está instalado
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        downloadBtn.textContent = 'Abrir chat';
+        downloadBtn.href = './chat/';
+      }
+
+      // Android: Capturar evento de instalación
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Cambiar comportamiento del botón
+        downloadBtn.addEventListener('click', async (event) => {
+          event.preventDefault();
+          
+          if (deferredPrompt) {
+            // Mostrar prompt nativo de Android
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+              console.log('App instalada');
+            }
+            deferredPrompt = null;
+          }
+        });
+      });
+
+      // iOS: Mostrar instrucciones
+      const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+      if (isIOS && !window.navigator.standalone) {
+        downloadBtn.addEventListener('click', (e) => {
+          // Dejar que vaya al chat, pero mostrar toast
+          setTimeout(() => {
+            iosToast.hidden = false;
+          }, 500);
+        });
+        
+        // Cerrar toast
+        iosToast.querySelector('.install-toast__close').addEventListener('click', () => {
+          iosToast.hidden = true;
+        });
+      }
+
+      // Evento cuando se instala
+      window.addEventListener('appinstalled', () => {
+        console.log('PWA instalada');
+        downloadBtn.textContent = 'Abrir chat';
+      });
+
     </script>
   </body>
 </html>
