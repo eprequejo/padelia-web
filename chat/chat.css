@@ -462,3 +462,87 @@ body.chat--empty .composer__inputWrap{
     font-size: 1rem;
   }
 }
+
+/* Botón instalar en header */
+.btn-install {
+  padding: 8px 14px;
+  background: rgba(111, 45, 189, 0.2);
+  border: 1px solid rgba(111, 45, 189, 0.4);
+  border-radius: 999px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-install:hover {
+  background: rgba(111, 45, 189, 0.3);
+  border-color: rgba(111, 45, 189, 0.6);
+}
+
+/* Toast iOS */
+.install-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 320px;
+  width: calc(100% - 32px);
+  background: rgba(11, 15, 25, 0.98);
+  border: 1px solid rgba(111, 45, 189, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.install-toast__inner {
+  color: var(--text-main);
+  position: relative;
+}
+
+.install-toast__close {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--text-muted);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.install-toast__inner strong {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--padelia-purple);
+  font-size: 16px;
+}
+
+.install-toast__inner p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-main);
+}

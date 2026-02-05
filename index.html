@@ -30,12 +30,11 @@
           <a href="#que-es">Qué es</a>
           <a href="#como-funciona">Cómo funciona</a>
           <a href="#app">App</a>
-          <a href="#alta-torneo">Dar de alta</a>
         </nav>
 
         <div class="actions">
-          <a class="btn btn--ghost" href="#login" aria-disabled="true">Log in</a>
-          <a class="btn btn--primary" href="#app">Descargar app</a>
+          <!-- <a class="btn btn--ghost" href="#login" aria-disabled="true">Log in</a> -->
+          <a class="btn btn--primary" href="./chat/">Chat</a>
         </div>
       </div>
     </header>
@@ -44,7 +43,7 @@
       <section class="hero">
         <h1>Tu pádel empieza con un mensaje</h1>
         <p class="subtitle">
-          ¿Qué torneo te apetece jugar?
+          ¿Qué torneo buscas? Dilo como lo dirías y te llevamos a inscribirte.
         </p>
 
         <div class="chatbox" role="search">
@@ -53,7 +52,7 @@
               id="prompt"
               class="chatbox__input"
               type="text"
-              placeholder="“Torneos este finde cerca de Mijas, nivel 3”"
+              placeholder="Torneos este finde cerca de Mijas, nivel 3"
               autocomplete="off"
             />
           </div>
@@ -61,28 +60,19 @@
         </div>
 
         <p class="hero__hint">
-          Pensado para jugadores <strong>amateur</strong>. Rápido, simple y directo a lo importante.
+          Pensado para jugadores amateur. Rápido, simple y directo a lo importante.
         </p>
       </section>
 
       <section id="que-es" class="section">
         <h2>Qué es</h2>
-
         <p>
-          <strong>Padelia te ayuda a encontrar torneos y planes de pádel sin perder tiempo buscando en mil apps.</strong>
+          <strong>¿Cansado de buscar torneos en mil sitios?</strong>
         </p>
-
         <p>
-          Tú dices lo que quieres (zona, fecha, nivel) y Padelia te muestra opciones claras
-          para que puedas ir <strong>directo a inscribirte</strong>.
-        </p>
-
-        <p>
-          <em>Estamos en beta:</em> si algo no te encaja, dímelo. Ese feedback vale oro 💜
-        </p>
-
-        <p>
-          <em>Próximamente:</em> podrás escribir “avísame” y Padelia te avisará cuando salga un torneo parecido.
+          La forma más fácil de encontrar torneos de pádel. 
+          Escribe lo que buscas y te mostramos todo en un solo sitio, 
+          listo para inscribirte.
         </p>
       </section>
 
@@ -90,35 +80,29 @@
         <div class="split">
           <div class="split__left">
             <h2>Cómo funciona</h2>
-
             <p>
               <strong>No cambias tu forma de hablar. Cambias tu forma de encontrar torneos.</strong>
             </p>
 
             <div class="steps">
               <div class="step">
-                <h3>1. Pide lo que te apetece</h3>
-                <p>“Este finde”, “mixto”, “nivel 3”, “cerca de mí”, “por Málaga”, “mañana”.</p>
+                <h3>1. Escribe lo que buscas</h3>
+                <p>"Torneos este finde en Málaga, nivel 3, mixto"</p>
               </div>
 
               <div class="step">
                 <h3>2. Recibe opciones claras</h3>
-                <p>Nombre, fecha, zona, nivel/categorías y enlace cuando existe.</p>
+                <p>Fecha, zona, categorías, precio y enlace directo</p>
               </div>
 
               <div class="step">
-                <h3>3. Entra y apúntate</h3>
-                <p>Un clic y estás en el sitio correcto para inscribirte o ver más info.</p>
+                <h3>3. Inscríbete</h3>
+                <p>Un click y te lleva directamente a la inscripción.</p>
               </div>
+            </div>
 
-              <div class="step step--soon">
-                <h3>4. Próximamente: “avísame” y te notificamos</h3>
-                <p>
-                  Guarda una búsqueda (zona + nivel + fechas) y Padelia te avisará cuando aparezca un torneo que encaje contigo.
-                </p>
-                <span class="badge badge--soon">Próximamente</span>
-              </div>
-
+            <div style="margin-top: 32px;">
+              <a class="btn btn--primary" href="./chat/">Probarlo ahora</a>
             </div>
           </div>
 
@@ -129,30 +113,21 @@
                   <img src="./assets/logo.svg" class="chatMock__logo" alt="" aria-hidden="true" />
                   <span class="chatMock__title">Padelia · beta</span>
                 </div>
-                <span class="chatMock__meta">Demo</span>
               </div>
 
               <div class="chatMock__body">
                 <div class="msg msg--user">
-                  Torneos este finde por Mijas/Fuengirola, nivel 3, mixto.
+                  torneos en málaga mixtos para este fin de semana
                 </div>
 
                 <div class="msg msg--bot">
-                  Te paso 3 opciones por fecha y zona. ¿Prefieres solo mixtos o también femeninos?
+                  <strong style="color: #8B5CF6;">I MEGATORNEO EXPRES SURCARAVAN</strong><br/>
+                  📅 Sáb 7 de febrero<br/>
+                  📍 TORNEOS MÁLAGA · benalmadena<br/>
+                  🏷️ Masc: 2, 3, 4A · Fem: 2, 3, 4 · Mixto: 4<br/>
+                  💰 20€<br/><br/>
+                  <strong style="color: #8B5CF6;">Inscribirme</strong>  <span style="color: #999;">Más info</span>
                 </div>
-
-                <div class="msg msg--bot">
-                  1) Mixto nivel 3 · Fuengirola · Sábado · <strong>Inscribirme</strong><br/>
-                  2) Mixto nivel 3 · Mijas · Domingo · <strong>Inscribirme</strong><br/>
-                  3) Mixto nivel 3 · Málaga · Domingo · <strong>Inscribirme</strong>
-                </div>
-              </div>
-
-              <div class="chatMock__composer">
-                <div class="chatMock__inputWrap">
-                  <input type="text" disabled />
-                </div>
-                <button disabled>Chatear</button>
               </div>
             </div>
           </div>
@@ -160,66 +135,15 @@
       </section>
 
       <section id="app" class="section section--app">
-        <h2>La app de Padelia</h2>
+        <h2>Úsalo como app</h2>
+        
         <p>
-          Padelia funciona como una app normal. Pulsa “Descargar” y añádela a tu móvil desde el navegador.
+          Padelia funciona en tu móvil como cualquier app. 
+          Entra al chat para instalarlo.
         </p>
+        
         <div class="appRow">
-          <a class="btn btn--primary" href="./chat/" id="downloadPwa">Descargar app</a>
-          <a class="btn btn--ghost" href="#como-funciona">Ver cómo funciona</a>
-          <!-- Toast para iOS -->
-          <div id="iosInstallToast" class="install-toast" hidden>
-            <div class="install-toast__content">
-              <strong>Instalar Padelia</strong>
-              <p>
-                1. Toca el botón <strong>Compartir</strong> 
-                <svg width="16" height="16" fill="currentColor"><use href="#icon-share"/></svg>
-              </p>
-              <p>2. Selecciona <strong>"Añadir a inicio"</strong></p>
-              <button class="install-toast__close">Entendido</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="alta-torneo" class="section section--cta">
-        <div class="ctaCard">
-          <div class="ctaCard__text">
-            <h2>
-              ¿Quieres que Padelia hable de tu torneo?
-              <span class="badge badge--soon">Próximamente</span>
-            </h2>
-
-            <p>
-              Si organizas un torneo (club, circuito o evento), dalo de alta y lo incluiremos en Padelia.
-              <strong>Estamos construyéndolo</strong>, pero queremos priorizar esto pronto.
-            </p>
-
-            <ul class="ctaList">
-              <li>Aparece con enlace de inscripción</li>
-              <li>Mejor visibilidad para jugadores de tu zona</li>
-              <li>Feedback rápido para mejorarlo</li>
-            </ul>
-          </div>
-
-          <div class="ctaCard__actions">
-            <a class="btn btn--primary" href="#wip-alta-torneo" id="btnAltaTorneo">
-              Dar de alta mi torneo
-            </a>
-          </div>
-        </div>
-
-        <div class="wipNotice" id="wipAltaTorneo" hidden>
-          <div class="wipNotice__inner">
-            <strong>Work in progress</strong>
-            <p>
-              Estamos preparando el alta de torneos. Si quieres, mándanos un email con el enlace del torneo
-              y lo intentamos incluir manualmente en la beta.
-            </p>
-            <a class="link" href="mailto:eprequejo@gmail.com?subject=Padelia%20-%20Alta%20de%20torneo">
-              Enviar por email
-            </a>
-          </div>
+          <a class="btn btn--primary" href="./chat/">Abrir chat</a>
         </div>
       </section>
 
@@ -228,11 +152,7 @@
         <div class="footer__inner">
           <span>© <span id="year"></span> Padelia</span>
           <span class="sep">·</span>
-          <a class="link" href="#privacy">Privacidad</a>
-          <span class="sep">·</span>
-          <a class="link" href="#terms">Términos</a>
-          <span class="sep">·</span>
-          <a class="link" href="mailto:eprequejo@gmail.com">Feedback</a>
+          <a class="link" href="mailto:eprequejo@gmail.com">💜 Feedback</a>
         </div>
       </footer>
     </main>
@@ -253,62 +173,6 @@
       });
 
       document.getElementById("year").textContent = new Date().getFullYear();
-
-      // PWA Installation Logic
-      let deferredPrompt;
-      const downloadBtn = document.getElementById('downloadPwa');
-      const iosToast = document.getElementById('iosInstallToast');
-
-      // Detectar si ya está instalado
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        downloadBtn.textContent = 'Abrir chat';
-        downloadBtn.href = './chat/';
-      }
-
-      // Android: Capturar evento de instalación
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        
-        // Cambiar comportamiento del botón
-        downloadBtn.addEventListener('click', async (event) => {
-          event.preventDefault();
-          
-          if (deferredPrompt) {
-            // Mostrar prompt nativo de Android
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-              console.log('App instalada');
-            }
-            deferredPrompt = null;
-          }
-        });
-      });
-
-      // iOS: Mostrar instrucciones
-      const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-      if (isIOS && !window.navigator.standalone) {
-        downloadBtn.addEventListener('click', (e) => {
-          // Dejar que vaya al chat, pero mostrar toast
-          setTimeout(() => {
-            iosToast.hidden = false;
-          }, 500);
-        });
-        
-        // Cerrar toast
-        iosToast.querySelector('.install-toast__close').addEventListener('click', () => {
-          iosToast.hidden = true;
-        });
-      }
-
-      // Evento cuando se instala
-      window.addEventListener('appinstalled', () => {
-        console.log('PWA instalada');
-        downloadBtn.textContent = 'Abrir chat';
-      });
-
     </script>
   </body>
 </html>

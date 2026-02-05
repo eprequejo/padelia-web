@@ -20,12 +20,9 @@
 
     <title>Padelia — Chat</title>
 
-    <!-- Reutiliza paleta -->
     <link rel="stylesheet" href="../assets/palette.css" />
     <link rel="stylesheet" href="../assets/styles.css" />
     <link rel="stylesheet" href="./chat.css" />
-
-    <link rel="icon" href="../assets/logo.svg" />
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="module" src="./chat.js"></script>
@@ -34,13 +31,17 @@
   <body>
     <header class="chatTop">
       <div class="chatTop__inner">
-        <a class="chatTop__brand" href="../" aria-label="Volver a Padelia">
-          <img src="../assets/logo.svg" class="chatTop__logo" alt="" aria-hidden="true" />
-          <span class="chatTop__name">Padelia</span>
-          <span class="chatTop__badge">beta</span>
+        <a class="brand" href="../" aria-label="Volver a Padelia">
+          <img src="../assets/logo.svg" class="brand__icon" alt="" aria-hidden="true" />
+          <span class="brand__name">Padelia</span>
+          <span class="brand__badge">beta</span>
         </a>
-
         <a class="chatTop__link" href="../#que-es">Qué es</a>
+        
+        <!-- Botón instalar (solo visible si no está instalado) -->
+        <button id="installBtn" class="btn-install" hidden>
+          Instalar
+        </button>
       </div>
     </header>
 
@@ -55,7 +56,6 @@
     <footer class="composer" id="composer">
       <form id="form" class="composer__inner" autocomplete="off">
         <div class="composer__inputWrap">
-
           <textarea
             id="input"
             class="composer__input"
@@ -63,22 +63,87 @@
             placeholder="Escribe como lo dirías…"
             enterkeyhint="send"></textarea>
         </div>
-
         <button id="send" class="composer__btn" type="submit" disabled aria-label="Enviar">
           <span class="composer__btnText">Enviar</span>
           <span class="composer__btnIcon" aria-hidden="true">➤</span>
         </button>
-
       </form>
     </footer>
 
+    <!-- Toast para iOS -->
+    <div id="iosInstallToast" class="install-toast" hidden>
+      <div class="install-toast__inner">
+        <button class="install-toast__close" aria-label="Cerrar">✕</button>
+        <strong>📱 Instalar Padelia</strong>
+        <p>1. Toca <strong>Compartir</strong> (abajo en Safari)</p>
+        <p>2. Selecciona <strong>"Añadir a inicio"</strong></p>
+      </div>
+    </div>
+
     <script>
+      // Service Worker
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('../sw.js')
           .then(reg => console.log('SW registered'))
           .catch(err => console.log('SW registration failed', err));
       }
-    </script>
 
+      // PWA Installation
+      let deferredPrompt;
+      const installBtn = document.getElementById('installBtn');
+      const iosToast = document.getElementById('iosInstallToast');
+
+      // Detectar si ya está instalado
+      const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
+                          window.navigator.standalone;
+
+      if (!isInstalled) {
+        // Android: Mostrar botón cuando el evento esté disponible
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          
+          // Mostrar botón
+          installBtn.hidden = false;
+          
+          // Click en botón → mostrar prompt
+          installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+              deferredPrompt.prompt();
+              const { outcome } = await deferredPrompt.userChoice;
+              
+              if (outcome === 'accepted') {
+                console.log('App instalada');
+                installBtn.hidden = true;
+              }
+              deferredPrompt = null;
+            }
+          });
+        });
+
+        // iOS: Mostrar toast automáticamente (solo primera vez)
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        const hasSeenToast = localStorage.getItem('padelia-ios-toast-seen');
+        
+        if (isIOS && !hasSeenToast) {
+          setTimeout(() => {
+            iosToast.hidden = false;
+            localStorage.setItem('padelia-ios-toast-seen', 'true');
+          }, 3000);
+          
+          // Cerrar toast
+          const closeBtn = iosToast.querySelector('.install-toast__close');
+          closeBtn.addEventListener('click', () => {
+            iosToast.hidden = true;
+          });
+        }
+      }
+
+      // Cuando se instala, ocultar botón
+      window.addEventListener('appinstalled', () => {
+        console.log('PWA instalada');
+        if (installBtn) installBtn.hidden = true;
+      });
+    </script>
   </body>
 </html>
