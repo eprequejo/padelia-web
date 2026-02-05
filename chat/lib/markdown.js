@@ -5,6 +5,7 @@ import { getUserId, getThreadId } from "./storage.js";
 
 const norm = (s) => (s || "").trim().toLowerCase();
 
+// Helper para añadir UTM tracking a URLs
 function addUTMParams(url) {
   if (!url) return url;
   try {
@@ -16,6 +17,113 @@ function addUTMParams(url) {
   } catch (e) {
     return url;
   }
+}
+
+// 🎨 Helpers para formatear fechas
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  
+  try {
+    const date = new Date(dateStr + "T00:00:00");
+    const weekday = date.toLocaleDateString("es-ES", { weekday: "short" });
+    const day = date.getDate();
+    const month = date.toLocaleDateString("es-ES", { month: "long" });
+    
+    const weekdayCapitalized = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+    
+    return `${weekdayCapitalized} ${day} de ${month}`;
+  } catch (e) {
+    return dateStr;
+  }
+}
+
+function formatDateRange(start, end) {
+  if (!start) return "";
+  if (!end || start === end) return formatDate(start);
+  
+  try {
+    const startDate = new Date(start + "T00:00:00");
+    const endDate = new Date(end + "T00:00:00");
+    
+    const startWeekday = startDate.toLocaleDateString("es-ES", { weekday: "short" });
+    const startDay = startDate.getDate();
+    
+    const endWeekday = endDate.toLocaleDateString("es-ES", { weekday: "short" });
+    const endDay = endDate.getDate();
+    const endMonth = endDate.toLocaleDateString("es-ES", { month: "long" });
+    
+    const startCapitalized = startWeekday.charAt(0).toUpperCase() + startWeekday.slice(1);
+    const endCapitalized = endWeekday.charAt(0).toUpperCase() + endWeekday.slice(1);
+    
+    // Mismo mes
+    if (startDate.getMonth() === endDate.getMonth()) {
+      return `${startCapitalized} ${startDay} - ${endCapitalized} ${endDay} de ${endMonth}`;
+    }
+    
+    // Meses diferentes
+    const startMonth = startDate.toLocaleDateString("es-ES", { month: "long" });
+    return `${startCapitalized} ${startDay} de ${startMonth} - ${endCapitalized} ${endDay} de ${endMonth}`;
+    
+  } catch (e) {
+    return `${start} - ${end}`;
+  }
+}
+
+function formatCategories(categoriesStr) {
+  if (!categoriesStr) return "";
+  
+  const cats = categoriesStr.toLowerCase().split(",").map(c => c.trim());
+  
+  const masc = [];
+  const fem = [];
+  const mixto = [];
+  
+  cats.forEach(cat => {
+    // Extraer el número/nivel
+    const match = cat.match(/(\d+[ab]?)/i);
+    if (!match) return;
+    
+    const level = match[1].toUpperCase();
+    
+    if (cat.includes("masculin")) {
+      masc.push(level);
+    } else if (cat.includes("femenin")) {
+      fem.push(level);
+    } else if (cat.includes("mixto")) {
+      mixto.push(level);
+    }
+  });
+  
+  const parts = [];
+  
+  if (masc.length) {
+    parts.push(`Masc: ${masc.join(", ")}`);
+  }
+  
+  if (fem.length) {
+    parts.push(`Fem: ${fem.join(", ")}`);
+  }
+  
+  if (mixto.length) {
+    parts.push(`Mixto: ${mixto.join(", ")}`);
+  }
+  
+  return parts.join(" · ");
+}
+
+// Formatear fechas ISO en texto de detalles
+function formatDatesInText(text) {
+  // Patrón rango: YYYY-MM-DD - YYYY-MM-DD
+  text = text.replace(/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/g, (match, start, end) => {
+    return formatDateRange(start, end);
+  });
+  
+  // Patrón fecha simple: YYYY-MM-DD
+  text = text.replace(/(\d{4}-\d{2}-\d{2})/g, (match) => {
+    return formatDate(match);
+  });
+  
+  return text;
 }
 
 /**
@@ -35,6 +143,7 @@ export function enhanceActionButtons(bubble) {
     const strong = p.querySelector("strong");
     const primaryBtn = btns.find(b => norm(b.textContent) === "inscribirme");
     const inscribirmeUrl = primaryBtn ? primaryBtn.href : null;
+    const tournamentName = strong ? strong.textContent : 'unknown';
     
     // 1. Extraer título si existe
     if (strong && strong.textContent.length > 10) {
@@ -79,7 +188,7 @@ export function enhanceActionButtons(bubble) {
         trackEvent({
           event_type: 'click_action',
           action: t,
-          tournament_name: strong ? strong.textContent : 'unknown',
+          tournament_name: tournamentName,
           url: originalUrl,
           user_id: getUserId(),
           thread_id: getThreadId()
@@ -99,12 +208,17 @@ export function enhanceActionButtons(bubble) {
     
     if (p.textContent.trim()) {
       p.className = "tournament-details";
+      // Formatear fechas en los detalles
+      p.innerHTML = formatDatesInText(p.innerHTML);
     } else {
       p.remove();
     }
   });
 }
 
+/**
+ * No-op - el nuevo formato no usa metaRows
+ */
 export function enhanceMetaRows(bubble) {
-  // No-op
+  // Ya no se usa
 }

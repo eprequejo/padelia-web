@@ -198,32 +198,28 @@ body{
    ===================== */
 
 .tournament-name{
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.2rem;
 }
 
 .tournament-name:first-child{ margin-top: 0; }
-.tournament-name:last-child{ margin-bottom: 0; }
 
 .tournament-name strong,
-.tournament-name h2,
-.tournament-name h3{
-  margin-top: 0;
-  margin-bottom: 0;
+.tournament-name a strong{
+  margin: 0;
   color: var(--padelia-purple);
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .tournament-title-link{
   color: var(--padelia-purple);
   text-decoration: none;
-  transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
 .tournament-title-link:hover{
-  color: var(--padelia-purple-dark);
   text-decoration: underline;
 }
 
@@ -233,38 +229,11 @@ body{
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.metaRow{
-  display: grid;
-  grid-template-columns: 18px 90px 1fr;
-  gap: 6px;
-  align-items: start;
-  padding: 2px 4px;
-}
-
-.metaIcon{ 
-  opacity: .9; 
-  line-height: 1.2; 
-  font-size: 13px;
-}
-
-.metaLabel{
+.tournament-details{
   color: var(--text-muted);
-  font-weight: 700;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-
-.metaValue{
-  color: var(--text-main);
-  font-size: 13px;
+  font-size: 0.8rem;
+  margin: 0.1rem 0;
   line-height: 1.3;
-}
-
-.tournament-details {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin: 0.25rem 0;
 }
 
 /* =====================
@@ -274,14 +243,14 @@ body{
 .actionsRow{
   display: flex;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: 0.4rem;
   flex-wrap: wrap;
 }
 
 .msg .actionsRow .btn{
   text-decoration: none !important;
-  padding: 8px 14px;
-  font-size: 13px;
+  padding: 8px 12px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -292,7 +261,6 @@ body{
 
 .msg .actionsRow .btn.btn--ghost{
   background: transparent;
-  padding: 8px 12px;
 }
 
 .msg .actionsRow .btn--primary::after{
@@ -554,6 +522,19 @@ body.chat--empty .composer__inputWrap{
   .tournament-name h2,
   .tournament-name h3{
     font-size: 1rem;
+  }
+
+  .tournament-name strong,
+  .tournament-name a strong{
+    font-size: 0.8rem;
+  }
+  
+  .tournament-details{
+    font-size: 0.75rem;
+  }
+  
+  .msg .actionsRow .btn{
+    padding: 10px 14px;
   }
 }
 

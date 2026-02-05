@@ -21,14 +21,11 @@ export function addMsg(messagesEl, role, text) {
   bubble.className = "msg " + (role === "user" ? "msg--user" : "msg--bot");
   bubble.innerHTML = marked.parse(text);
   
-  // PRIMERO: Procesar metaRows y botones
   enhanceMetaRows(bubble);
   enhanceActionButtons(bubble);
   
-  // DESPUÉS: Procesar torneos (ahora los botones ya existen)
   if (role === "bot") {
     addTournamentSeparators(bubble);
-    makeTournamentNamesClickable(bubble);
   }
   
   wrap.appendChild(bubble);
@@ -38,76 +35,14 @@ export function addMsg(messagesEl, role, text) {
 }
 
 function addTournamentSeparators(bubble) {
-  const titles = Array.from(bubble.querySelectorAll('strong, h2, h3'));
+  const titles = Array.from(bubble.querySelectorAll('.tournament-name'));
   
-  let tournamentTitles = [];
-  
-  titles.forEach(title => {
-    const text = title.textContent.trim();
-    
-    if (text.includes('¿') || text.length < 10) return;
-    if (text.toLowerCase().includes('hola') || text.toLowerCase().includes('padelia')) return;
-    if (text.toLowerCase().includes('torneos:')) return;
-    
-    tournamentTitles.push(title);
-  });
-  
-  tournamentTitles.forEach((title, index) => {
+  titles.forEach((title, index) => {
     if (index > 0) {
       const separator = document.createElement('hr');
       separator.className = 'tournament-separator';
       title.before(separator);
     }
-  });
-}
-
-function makeTournamentNamesClickable(bubble) {
-  const strongs = Array.from(bubble.querySelectorAll('strong'));
-  
-  strongs.forEach(strong => {
-    const text = strong.textContent.trim();
-    
-    // Filtrar no-títulos
-    if (text.length < 10) return;
-    if (text.includes('¿')) return;
-    if (text.toLowerCase().includes('hola')) return;
-    if (text.toLowerCase().includes('torneos:')) return;
-    
-    // Buscar actionsRow en los siguientes elementos
-    let el = strong.closest('p');
-    if (!el) return;
-    
-    let inscribirmeUrl = null;
-    let attempts = 0;
-    
-    while (el.nextElementSibling && attempts < 5) {
-      el = el.nextElementSibling;
-      const actionsRow = el.classList.contains('actionsRow') ? el : el.querySelector('.actionsRow');
-      if (actionsRow) {
-        const primaryBtn = actionsRow.querySelector('.btn--primary');
-        if (primaryBtn) {
-          inscribirmeUrl = primaryBtn.href;
-          break;
-        }
-      }
-      attempts++;
-    }
-    
-    if (!inscribirmeUrl) return;
-    
-    // Hacer clickeable
-    const parent = strong.closest('p');
-    parent.classList.add('tournament-name');
-    
-    const link = document.createElement('a');
-    link.href = inscribirmeUrl;
-    link.className = 'tournament-title-link';
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.textContent = text;
-    
-    strong.textContent = '';
-    strong.appendChild(link);
   });
 }
 
