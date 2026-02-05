@@ -30,9 +30,13 @@ function hydrateFromQuery() {
 }
 
 // Init
-setEmptyMode(true);
 seed();
 hydrateFromQuery();
+
+requestAnimationFrame(() => {
+  messagesEl.scrollTop = 0;  // Para el mensaje inicial, queremos verlo arriba
+});
+
 input.focus();
 autoGrow(input);
 updateSendState();
