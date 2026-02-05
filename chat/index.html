@@ -37,6 +37,7 @@
           <span class="brand__badge">beta</span>
         </a>
         <a class="chatTop__link" href="../#que-es">Qué es</a>
+        <a class="chatTop__link" href="#" id="installLink">Instalar app</a>
         
         <!-- Botón instalar (solo visible si no está instalado) -->
         <button id="installBtn" class="btn-install" hidden>
@@ -91,13 +92,18 @@
       // PWA Installation
       let deferredPrompt;
       const installBtn = document.getElementById('installBtn');
+      const installLink = document.getElementById('installLink');
       const iosToast = document.getElementById('iosInstallToast');
 
       // Detectar si ya está instalado
       const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
                           window.navigator.standalone;
 
-      if (!isInstalled) {
+      if (isInstalled) {
+        // Ya instalada, ocultar link y botón
+        if (installLink) installLink.style.display = 'none';
+        if (installBtn) installBtn.hidden = true;
+      } else {
         // Android: Mostrar botón cuando el evento esté disponible
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
@@ -113,7 +119,6 @@
               const { outcome } = await deferredPrompt.userChoice;
               
               if (outcome === 'accepted') {
-                console.log('App instalada');
                 installBtn.hidden = true;
               }
               deferredPrompt = null;
@@ -121,29 +126,34 @@
           });
         });
 
-        // iOS: Mostrar toast automáticamente (solo primera vez)
-        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-        const hasSeenToast = localStorage.getItem('padelia-ios-toast-seen');
-        
-        if (isIOS && !hasSeenToast) {
-          setTimeout(() => {
-            iosToast.hidden = false;
-            localStorage.setItem('padelia-ios-toast-seen', 'true');
-          }, 3000);
-          
-          // Cerrar toast
-          const closeBtn = iosToast.querySelector('.install-toast__close');
-          closeBtn.addEventListener('click', () => {
-            iosToast.hidden = true;
+        // Link "Instalar app" (siempre visible si no está instalada)
+        if (installLink) {
+          installLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            if (deferredPrompt) {
+              // Android: mostrar prompt nativo
+              deferredPrompt.prompt();
+            } else if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+              // iOS: mostrar toast
+              iosToast.hidden = false;
+            }
           });
         }
+
+        // Cerrar toast
+        const closeBtn = iosToast.querySelector('.install-toast__close');
+        closeBtn.addEventListener('click', () => {
+          iosToast.hidden = true;
+        });
       }
 
-      // Cuando se instala, ocultar botón
+      // Cuando se instala, ocultar todo
       window.addEventListener('appinstalled', () => {
-        console.log('PWA instalada');
         if (installBtn) installBtn.hidden = true;
+        if (installLink) installLink.style.display = 'none';
       });
     </script>
+
   </body>
 </html>
