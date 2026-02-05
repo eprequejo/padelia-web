@@ -62,59 +62,52 @@ function addTournamentSeparators(bubble) {
 }
 
 function makeTournamentNamesClickable(bubble) {
-  const titles = Array.from(bubble.querySelectorAll('strong, h2, h3'));
+  const strongs = Array.from(bubble.querySelectorAll('strong'));
   
-  titles.forEach(title => {
-    const text = title.textContent.trim();
+  strongs.forEach(strong => {
+    const text = strong.textContent.trim();
     
-    if (text.includes('¿') || text.length < 10) return;
-    if (text.toLowerCase().includes('hola') || text.toLowerCase().includes('padelia')) return;
+    // Filtrar no-títulos
+    if (text.length < 10) return;
+    if (text.includes('¿')) return;
+    if (text.toLowerCase().includes('hola')) return;
     if (text.toLowerCase().includes('torneos:')) return;
     
-    // Buscar el siguiente <ul> que contenga actionsRow
-    let current = title.closest('p');
-    if (!current) {
-      return;
-    }
+    // Buscar actionsRow en los siguientes elementos
+    let el = strong.closest('p');
+    if (!el) return;
     
-    // Buscar siguiente elemento UL
-    let nextUl = current.nextElementSibling;
+    let inscribirmeUrl = null;
     let attempts = 0;
     
-    while (nextUl && attempts < 10) {
-      
-      if (nextUl.tagName === 'UL') {
-        // Buscar actionsRow dentro de este UL
-        const actionsRow = nextUl.querySelector('.actionsRow');
-        
-        if (actionsRow) {
-          const primaryBtn = actionsRow.querySelector('.btn--primary');
-          
-          if (primaryBtn) {
-            const inscribirmeUrl = primaryBtn.href;
-            
-            // Hacer título clickeable
-            title.classList.add('tournament-name');
-            
-            const link = document.createElement('a');
-            link.href = inscribirmeUrl;
-            link.className = 'tournament-title-link';
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            link.textContent = text;
-            
-            title.textContent = '';
-            title.appendChild(link);
-            
-            return;
-          }
+    while (el.nextElementSibling && attempts < 5) {
+      el = el.nextElementSibling;
+      const actionsRow = el.classList.contains('actionsRow') ? el : el.querySelector('.actionsRow');
+      if (actionsRow) {
+        const primaryBtn = actionsRow.querySelector('.btn--primary');
+        if (primaryBtn) {
+          inscribirmeUrl = primaryBtn.href;
+          break;
         }
       }
-      
-      nextUl = nextUl.nextElementSibling;
       attempts++;
     }
     
+    if (!inscribirmeUrl) return;
+    
+    // Hacer clickeable
+    const parent = strong.closest('p');
+    parent.classList.add('tournament-name');
+    
+    const link = document.createElement('a');
+    link.href = inscribirmeUrl;
+    link.className = 'tournament-title-link';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = text;
+    
+    strong.textContent = '';
+    strong.appendChild(link);
   });
 }
 
