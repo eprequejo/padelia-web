@@ -166,7 +166,7 @@ export function enhanceActionButtons(bubble) {
       strong.remove();
     }
     
-    // 2. Estilizar y mover botones a actionsRow
+    // 2. Crear actionsRow con botones
     const row = document.createElement("div");
     row.className = "actionsRow";
     
@@ -183,7 +183,6 @@ export function enhanceActionButtons(bubble) {
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       
-      // Tracking
       a.addEventListener('click', () => {
         trackEvent({
           event_type: 'click_action',
@@ -201,16 +200,29 @@ export function enhanceActionButtons(bubble) {
       row.appendChild(a);
     });
     
-    p.after(row);
+    // 3. Separar detalles por <br>
+    p.innerHTML = p.innerHTML
+      .replace(/\s*·\s*(<br\s*\/?>|$)/gi, '$1')
+      .replace(/^\s*·\s*/g, '')
+      .trim();
     
-    // 3. Limpiar párrafo - queda solo detalles
-    p.innerHTML = p.innerHTML.replace(/\s*·\s*$/g, '').replace(/^\s*·\s*/g, '').trim();
+    const parts = p.innerHTML
+      .split(/<br\s*\/?>/gi)
+      .map(s => s.trim())
+      .filter(Boolean);
     
-    if (p.textContent.trim()) {
-      p.className = "tournament-details";
-      // Formatear fechas en los detalles
-      p.innerHTML = formatDatesInText(p.innerHTML);
+    if (parts.length > 0) {
+      const fragment = document.createDocumentFragment();
+      parts.forEach(part => {
+        const detailP = document.createElement("p");
+        detailP.className = "tournament-details";
+        detailP.innerHTML = formatDatesInText(part);
+        fragment.appendChild(detailP);
+      });
+      fragment.appendChild(row);
+      p.replaceWith(fragment);
     } else {
+      p.after(row);
       p.remove();
     }
   });

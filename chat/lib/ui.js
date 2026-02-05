@@ -1,5 +1,8 @@
 import { enhanceActionButtons, enhanceMetaRows } from "./markdown.js";
 
+// Configurar marked para respetar saltos de línea
+marked.setOptions({ breaks: true });
+
 export function autoGrow(el) {
   el.style.height = "auto";
   el.style.height = Math.min(el.scrollHeight, 140) + "px";
