@@ -37,6 +37,8 @@ body{
   background: rgba(11,15,25,0.72);
   border-bottom: 1px solid rgba(255,255,255,0.06);
   padding-top: var(--safe-top);
+  transform: translateZ(0); 
+  -webkit-transform: translateZ(0);
 }
 
 .chatTop__inner{
