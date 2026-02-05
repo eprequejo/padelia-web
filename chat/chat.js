@@ -1,7 +1,5 @@
 import { callApi } from "./lib/api.js";
 import { addMsg, addTyping, autoGrow, setEmptyMode } from "./lib/ui.js";
-import { trackEvent } from "./lib/analytics.js";
-import { getUserId, getThreadId } from "./lib/storage.js";
 
 const messagesEl = document.getElementById("messages");
 const form = document.getElementById("form");
@@ -27,7 +25,7 @@ function hydrateFromQuery() {
     input.value = q;
     autoGrow(input);
     updateSendState();
-    setTimeout(() => form.requestSubmit(), 50);
+    setTimeout(() => form.requestSubmit(), 60);
   }
 }
 
@@ -74,7 +72,7 @@ form.addEventListener("submit", async (e) => {
     } catch (err) {
     typing.remove();
     addMsg(messagesEl, "bot",
-        "Uff, ahora mismo no puedo conectar con el servidor 😅\n\nPrueba en un momento o revisa que el API esté levantado."
+        "Vaya, no he podido buscar torneos ahora mismo. Inténtalo de nuevo en unos segundos 🙏"
     );
     console.error(err);
     }

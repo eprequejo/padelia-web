@@ -119,6 +119,7 @@ body{
   display:flex;
   gap: 10px;
   align-items:center;
+  margin-left: auto;
 }
 
 .btn{
@@ -455,9 +456,6 @@ h1{
   .btn--primary {
     font-size: 14px;
     padding: 11px 18px;
-  }
-  .actions {
-    margin-left: auto;
   }
 }
 
