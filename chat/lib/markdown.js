@@ -259,6 +259,7 @@ export function enhanceMetaRows(bubble){
     }
 
     const label = cleanLabel(rawLabel);
+    if (label.length > 20) continue;
     const ln = norm(label);
 
     // Solo labels de torneos
