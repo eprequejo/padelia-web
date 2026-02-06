@@ -121,7 +121,8 @@ export function renderResponse(text) {
     const detalles = [
         fecha ? `🗓️ ${fecha}` : '',
         ubicacion ? `📍 ${ubicacion}` : '',
-        precio ? `💰 ${precio}` : ''
+        precio ? `💰 ${precio}` : '',
+        cats ? `🏷️ ${cats}` : ''
         ].filter(Boolean).join(' · ');
 
     const urlInscripcion = addUTMParams(t.url_inscripcion);
@@ -133,7 +134,8 @@ export function renderResponse(text) {
           <strong>${t.nombre}</strong>
         </a>
       </p>
-      <p class="tournament-details">${detalles}</p>
+      <p class="tournament-details">${fecha ? `🗓️ ${fecha}` : ''} · ${precio ? `💰 ${precio}` : ''}</p>
+      <p class="tournament-details">${ubicacion ? `📍 ${ubicacion}` : ''}</p>
       <div class="actionsRow">
         <a href="${urlInscripcion}" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-tournament="${t.nombre}">Inscribirme</a>
         <a href="${urlInfo}" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" data-tournament="${t.nombre}">Más info</a>

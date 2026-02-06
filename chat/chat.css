@@ -527,6 +527,7 @@ body.chat--empty .composer__inputWrap{
  .tournament-name strong,
   .tournament-name a strong{
     font-size: 0.85rem;
+    text-transform: uppercase;
   }
   
   .tournament-details{
@@ -534,7 +535,7 @@ body.chat--empty .composer__inputWrap{
   } 
 
   .msg .actionsRow .btn{
-    padding: 6px 10px;
+    padding: 5px 9px;
     font-size: 11px;
   }
 }
