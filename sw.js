@@ -1,9 +1,9 @@
-const CACHE_NAME = 'padelia-v1';
+const CACHE_NAME = 'padelia-v2';
 const urlsToCache = [
-  '/padelia-web/chat/',
-  '/padelia-web/assets/palette.css',
-  '/padelia-web/assets/styles.css',
-  '/padelia-web/chat/chat.css',
+//   '/padelia-web/chat/',
+//   '/padelia-web/assets/palette.css',
+//   '/padelia-web/assets/styles.css',
+//   '/padelia-web/chat/chat.css',
   '/padelia-web/assets/logo.svg'
 ];
 
