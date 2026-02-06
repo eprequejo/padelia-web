@@ -8,6 +8,15 @@ import { parseResponse } from "./parser.js";
 // HELPERS
 // =====================
 
+function buildUbicacion(t) {
+  const parts = [t.club];
+  if (t.ciudad) parts.push(t.ciudad);
+  if (t.provincia && t.provincia.toLowerCase() !== (t.ciudad || '').toLowerCase()) {
+    parts.push(t.provincia);
+  }
+  return parts.filter(Boolean).join(', ');
+}
+
 function addUTMParams(url) {
   if (!url) return url;
   try {
@@ -55,21 +64,31 @@ function formatDateRange(start, end) {
 function formatCategories(str) {
   if (!str) return "";
   const cats = str.toLowerCase().split(",").map(c => c.trim());
-  const masc = [], fem = [], mixto = [];
+  const masc = [], fem = [], mixto = [], otros = [];
   
   cats.forEach(cat => {
-    const match = cat.match(/(\d+[ab]?)/i);
-    if (!match) return;
-    const level = match[1].toUpperCase();
+    // Patrón numérico: "2 masculina", "3a femenina"
+    const matchNum = cat.match(/(\d+[ab]?)/i);
+    // Patrón letra: "nivel a", "categoria b"
+    const matchLetter = cat.match(/(?:nivel|categoria)\s*([a-c])/i);
+    
+    const level = matchNum ? matchNum[1].toUpperCase() 
+                 : matchLetter ? matchLetter[1].toUpperCase() 
+                 : null;
+    
+    if (!level) return;
+    
     if (cat.includes("masculin")) masc.push(level);
     else if (cat.includes("femenin")) fem.push(level);
-    else if (cat.includes("mixto")) mixto.push(level);
+    else if (cat.includes("mixto") || cat.includes("mixta")) mixto.push(level);
+    else otros.push(level);
   });
   
   const parts = [];
-  if (masc.length) parts.push(`M:${masc.join(",")}`);
-  if (fem.length) parts.push(`F:${fem.join(",")}`);
-  if (mixto.length) parts.push(`X:${mixto.join(",")}`);
+  if (masc.length) parts.push(`Masc.: ${masc.join(",")}`);
+  if (fem.length) parts.push(`Fem.: ${fem.join(",")}`);
+  if (mixto.length) parts.push(`Mix.: ${mixto.join(",")}`);
+  if (otros.length) parts.push(otros.join(","));
   return parts.join(" ");
 }
 
@@ -95,11 +114,16 @@ export function renderResponse(text) {
     if (i > 0) html += `<hr class="tournament-separator">`;
     
     const fecha = formatDateRange(t.fecha_inicio, t.fecha_fin);
-    const ubicacion = [t.club, t.ciudad].filter(Boolean).join(', ');
+    const ubicacion = buildUbicacion(t);
     const precio = t.precio ? `${t.precio}€` : '';
     const cats = formatCategories(t.categorías);
     
-    const detalles = [fecha, ubicacion, precio, cats].filter(Boolean).join(' | ');
+    const detalles = [
+        fecha ? `🗓️ ${fecha}` : '',
+        ubicacion ? `📍 ${ubicacion}` : '',
+        precio ? `💰 ${precio}` : ''
+        ].filter(Boolean).join(' · ');
+
     const urlInscripcion = addUTMParams(t.url_inscripcion);
     const urlInfo = addUTMParams(t.url_info);
     
