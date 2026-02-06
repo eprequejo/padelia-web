@@ -534,7 +534,8 @@ body.chat--empty .composer__inputWrap{
   } 
 
   .msg .actionsRow .btn{
-    padding: 10px 14px;
+    padding: 6px 10px;
+    font-size: 11px;
   }
 }
 
