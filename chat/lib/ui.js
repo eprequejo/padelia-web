@@ -1,7 +1,6 @@
-import { enhanceActionButtons, enhanceMetaRows } from "./markdown.js";
+// chat/lib/ui.js
 
-// Configurar marked para respetar saltos de línea
-marked.setOptions({ breaks: true });
+import { renderResponse, attachTracking } from "./markdown.js";
 
 export function autoGrow(el) {
   el.style.height = "auto";
@@ -22,31 +21,23 @@ export function addMsg(messagesEl, role, text) {
   
   const bubble = document.createElement("div");
   bubble.className = "msg " + (role === "user" ? "msg--user" : "msg--bot");
-  bubble.innerHTML = marked.parse(text);
-  
-  enhanceMetaRows(bubble);
-  enhanceActionButtons(bubble);
   
   if (role === "bot") {
-    addTournamentSeparators(bubble);
+    const html = renderResponse(text);
+    if (html) {
+      bubble.innerHTML = html;
+      attachTracking(bubble);
+    } else {
+      bubble.innerHTML = `<p>${text}</p>`;
+    }
+  } else {
+    bubble.innerHTML = `<p>${text}</p>`;
   }
   
   wrap.appendChild(bubble);
   messagesEl.appendChild(wrap);
   messagesEl.scrollTop = messagesEl.scrollHeight;
   setEmptyMode(!hasAnyMessage(messagesEl));
-}
-
-function addTournamentSeparators(bubble) {
-  const titles = Array.from(bubble.querySelectorAll('.tournament-name'));
-  
-  titles.forEach((title, index) => {
-    if (index > 0) {
-      const separator = document.createElement('hr');
-      separator.className = 'tournament-separator';
-      title.before(separator);
-    }
-  });
 }
 
 export function addTyping(messagesEl) {
