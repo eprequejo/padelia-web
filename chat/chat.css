@@ -501,7 +501,6 @@ body.chat--empty .composer__inputWrap{
 }
 
 @media (max-width: 720px){
-  .chatWrap{ padding: 0 12px; }
   .composer__inner{ padding: 0 12px; }
   .chatTop__inner{ padding: 10px 12px; }
 }
