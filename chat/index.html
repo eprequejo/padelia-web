@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="../assets/palette.css" />
     <link rel="stylesheet" href="../assets/styles.css" />
     <link rel="stylesheet" href="./chat.css" />
+    <script>
+      // Cache bust en desarrollo
+      document.querySelector('link[href*="chat.css"]').href = `./chat.css?v=${Date.now()}`;
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="module" src="./chat.js"></script>
