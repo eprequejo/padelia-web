@@ -85,11 +85,11 @@ function formatCategories(str) {
   });
   
   const parts = [];
-  if (masc.length) parts.push(`Masc.: ${masc.join(",")}`);
-  if (fem.length) parts.push(`Fem.: ${fem.join(",")}`);
-  if (mixto.length) parts.push(`Mix.: ${mixto.join(",")}`);
-  if (otros.length) parts.push(otros.join(","));
-  return parts.join(" ");
+  if (masc.length) parts.push(`M: ${masc.join(", ")}`);
+  if (fem.length) parts.push(`F: ${fem.join(", ")}`);
+  if (mixto.length) parts.push(`X: ${mixto.join(", ")}`);
+  if (otros.length) parts.push(otros.join(", "));
+  return parts.join(" · ");
 }
 
 // =====================
@@ -136,6 +136,7 @@ export function renderResponse(text) {
       </p>
       <p class="tournament-details">${fecha ? `🗓️ ${fecha}` : ''} · ${precio ? `💰 ${precio}` : ''}</p>
       <p class="tournament-details">${ubicacion ? `📍 ${ubicacion}` : ''}</p>
+      <p class="tournament-details">${cats ? `🏷️ ${cats}` : ''}</p>
       <div class="actionsRow">
         <a href="${urlInscripcion}" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-tournament="${t.nombre}">Inscribirme</a>
         <a href="${urlInfo}" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" data-tournament="${t.nombre}">Más info</a>

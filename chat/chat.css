@@ -232,7 +232,7 @@ body{
 .tournament-details{
   color: var(--text-muted);
   font-size: 0.9rem;
-  margin: 0.2rem 0;
+  margin: 0.5rem 0;
   line-height: 1.4;
 }
 
@@ -532,10 +532,11 @@ body.chat--empty .composer__inputWrap{
   
   .tournament-details{
     font-size: 0.8rem;
+    margin: 0.2rem 0;
   } 
 
   .msg .actionsRow .btn{
-    padding: 5px 9px;
+    padding: 4px 8px;
     font-size: 11px;
   }
 }
