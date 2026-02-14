@@ -541,6 +541,5 @@ body.chat--empty .composer__inputWrap{
 }
 
 @media (max-width: 400px){
-  .chatTop__link{ display: none; }
   .composer__btn{ padding: 10px 12px; }
 }
