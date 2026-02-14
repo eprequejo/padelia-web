@@ -207,7 +207,7 @@ body{
 .tournament-name strong,
 .tournament-name a strong{
   margin: 0;
-  color: var(--padelia-purple);
+  color: var(--padelia-purple-light);
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -215,7 +215,7 @@ body{
 }
 
 .tournament-title-link{
-  color: var(--padelia-purple);
+  color: var(--padelia-purple-light);
   text-decoration: none;
 }
 
@@ -481,7 +481,7 @@ body.chat--empty .composer__inputWrap{
 .install-toast__inner strong{
   display: block;
   margin-bottom: 12px;
-  color: var(--padelia-purple);
+  color: var(--padelia-purple-light);
   font-size: 16px;
 }
 
@@ -525,13 +525,13 @@ body.chat--empty .composer__inputWrap{
 
  .tournament-name strong,
   .tournament-name a strong{
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     text-transform: uppercase;
   }
   
   .tournament-details{
-    font-size: 0.8rem;
-    margin: 0.2rem 0;
+    font-size: 0.85rem;
+    margin: 0.3rem 0;
   } 
 
   .msg .actionsRow .btn{
