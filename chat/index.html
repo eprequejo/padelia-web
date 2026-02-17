@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Encuentra tu próximo torneo de pádel" />
+    <meta name="description" content="Buscador de torneos de pádel. Dilo como lo dirías y te llevamos directo a inscribirte." />
     <meta name="theme-color" content="#6F2DBD" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -18,7 +18,7 @@
     <link rel="icon" href="../assets/logo.svg" />
     <link rel="apple-touch-icon" href="../assets/icon-192.png" />
 
-    <title>Padelia — Chat</title>
+    <title>Padelia — Buscar torneos</title>
 
     <link rel="stylesheet" href="../assets/palette.css" />
     <link rel="stylesheet" href="../assets/styles.css" />
@@ -40,7 +40,7 @@
           <span class="brand__name">Padelia</span>
           <span class="brand__badge">beta</span>
         </a>
-        <a class="chatTop__link" href="../#que-es">Qué es</a>
+        <a class="chatTop__link" href="../#como-funciona">Cómo funciona</a>
         <a class="chatTop__link" href="#" id="installLink">Instalar app</a>
         
         <!-- Botón instalar (solo visible si no está instalado) -->
@@ -51,7 +51,7 @@
     </header>
 
     <main class="chatWrap">
-      <section class="chat" aria-label="Chat con Padelia">
+      <section class="chat" aria-label="Buscador de torneos de pádel">
         <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
           <!-- Mensaje inicial -->
         </div>
@@ -65,11 +65,11 @@
             id="input"
             class="composer__input"
             rows="1"
-            placeholder="Escribe como lo dirías…"
+            placeholder="Torneos mixtos en Madrid este finde..."
             enterkeyhint="send"></textarea>
         </div>
-        <button id="send" class="composer__btn" type="submit" disabled aria-label="Enviar">
-          <span class="composer__btnText">Enviar</span>
+        <button id="send" class="composer__btn" type="submit" disabled aria-label="Buscar">
+          <span class="composer__btnText">Buscar</span>
           <span class="composer__btnIcon" aria-hidden="true">➤</span>
         </button>
       </form>
