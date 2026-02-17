@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="es">
   <head>
@@ -7,7 +6,7 @@
     <title>Padelia — Buscador de torneos de pádel</title>
     <meta
       name="description"
-      content="Padelia te ayuda a encontrar torneos y planes de pádel sin perder tiempo saltando entre apps. Dilo como lo dirías y ve directo a inscribirte."
+      content="Dile qué torneo buscas y Padelia lo encuentra por ti. Sin filtros, sin saltar entre apps. Un buscador conversacional de torneos de pádel en España."
     />
 
     <link rel="stylesheet" href="./assets/palette.css" />
@@ -27,127 +26,160 @@
         </a>
 
         <nav class="nav">
-          <a href="#que-es">Qué es</a>
           <a href="#como-funciona">Cómo funciona</a>
+          <a href="#fuentes">Fuentes</a>
           <a href="#app">App</a>
         </nav>
 
         <div class="actions">
-          <!-- <a class="btn btn--ghost" href="#login" aria-disabled="true">Log in</a> -->
-          <a class="btn btn--primary" href="./chat/">Chat</a>
+          <a class="btn btn--primary" href="./chat/">Buscar torneos</a>
         </div>
       </div>
     </header>
 
     <main class="container">
+
+      <!-- ======= HERO ======= -->
       <section class="hero">
-        <h1>Tu pádel empieza con un mensaje</h1>
-        <p class="subtitle">
-          ¿Qué torneo buscas? Dilo como lo dirías y te llevamos a inscribirte.
+        <div class="hero__badge anim-fade-in">Buscador de torneos de pádel en España</div>
+        <h1 class="anim-fade-in anim-delay-1">Tu pádel empieza con un mensaje</h1>
+        <p class="subtitle anim-fade-in anim-delay-1">
+          Dilo como lo dirías y te llevamos directo a inscribirte.<br/>
+          ¿Qué torneo buscas?
         </p>
 
-        <div class="chatbox" role="search">
+        <div class="chatbox anim-fade-in anim-delay-2" role="search">
           <div class="chatbox__inputWrap">
             <input
               id="prompt"
               class="chatbox__input"
               type="text"
-              placeholder="Torneos este finde cerca de Mijas, nivel 3"
+              placeholder="Torneos mixtos en Madrid este finde, nivel 3..."
               autocomplete="off"
             />
           </div>
-          <button id="go" class="chatbox__btn" type="button">Chatear</button>
+          <button id="go" class="chatbox__btn pulse-subtle" type="button">Buscar</button>
         </div>
 
-        <p class="hero__hint">
-          Pensado para jugadores amateur. Rápido, simple y directo a lo importante.
+        <p class="hero__hint anim-fade-in anim-delay-3">
+          Gratis · Sin registro · Resultados al instante
         </p>
       </section>
 
-      <section id="que-es" class="section">
-        <h2>Qué es</h2>
-        <p>
-          <strong>¿Cansado de buscar torneos en mil sitios?</strong>
-        </p>
-        <p>
-          La forma más fácil de encontrar torneos de pádel. 
-          Escribe lo que buscas y te mostramos todo en un solo sitio, 
-          listo para inscribirte.
-        </p>
-      </section>
+      <!-- ======= CÓMO FUNCIONA ======= -->
+      <section id="como-funciona" class="section anim-on-scroll">
+        <div class="section__header">
+          <span class="section__label">Cómo funciona</span>
+          <h2>Tan fácil como mandar un mensaje</h2>
+        </div>
 
-      <section id="como-funciona" class="section section--split">
-        <div class="split">
-          <div class="split__left">
-            <h2>Cómo funciona</h2>
-            <p>
-              <strong>No cambias tu forma de hablar. Cambias tu forma de encontrar torneos.</strong>
-            </p>
-
-            <div class="steps">
-              <div class="step">
-                <h3>1. Escribe lo que buscas</h3>
-                <p>"Torneos este finde en Málaga, nivel 3, mixto"</p>
-              </div>
-
-              <div class="step">
-                <h3>2. Recibe opciones claras</h3>
-                <p>Fecha, zona, categorías, precio y enlace directo</p>
-              </div>
-
-              <div class="step">
-                <h3>3. Inscríbete</h3>
-                <p>Un click y te lleva directamente a la inscripción.</p>
-              </div>
-            </div>
-
-            <div style="margin-top: 32px;">
-              <a class="btn btn--primary" href="./chat/">Chat</a>
-            </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-card__number">1</div>
+            <h3>Escribe lo que buscas</h3>
+            <p>Zona, nivel, fechas, tipo de torneo... como si hablaras con un amigo.</p>
           </div>
 
-          <div class="split__right">
-            <div class="chatMock">
-              <div class="chatMock__header">
-                <div class="chatMock__brand">
-                  <img src="./assets/logo.svg" class="chatMock__logo" alt="" aria-hidden="true" />
-                  <span class="chatMock__title">Padelia · beta</span>
-                </div>
-              </div>
+          <div class="step-card">
+            <div class="step-card__number">2</div>
+            <h3>Padelia busca por ti</h3>
+            <p>Rastreamos las principales plataformas de pádel de España en tiempo real.</p>
+          </div>
 
-              <div class="chatMock__body">
-                <div class="msg msg--user">
-                  torneos en málaga mixtos para este fin de semana
-                </div>
-
-                <div class="msg msg--bot">
-                  <strong style="color: #8B5CF6;">I MEGATORNEO EXPRES SURCARAVAN</strong><br/>
-                  📅 Sáb 7 de febrero<br/>
-                  📍 TORNEOS MÁLAGA · benalmadena<br/>
-                  🏷️ Masc: 2, 3, 4A · Fem: 2, 3, 4 · Mixto: 4<br/>
-                  💰 20€<br/><br/>
-                  <strong style="color: #8B5CF6;">Inscribirme</strong>  <span style="color: #999;">Más info</span>
-                </div>
-              </div>
-            </div>
+          <div class="step-card">
+            <div class="step-card__number">3</div>
+            <h3>Elige y juega</h3>
+            <p>Te mostramos los que encajan con enlace directo a la inscripción.</p>
           </div>
         </div>
       </section>
 
-      <section id="app" class="section section--app">
-        <h2>Úsalo como app</h2>
+      <!-- ======= CHAT DEMO ======= -->
+      <section class="demo anim-on-scroll">
+        <div class="chatMock chatMock--hero">
+          <div class="chatMock__header">
+            <div class="chatMock__brand">
+              <img src="./assets/logo.svg" class="chatMock__logo" alt="" aria-hidden="true" />
+              <span class="chatMock__title">Padelia · beta</span>
+            </div>
+            <div class="chatMock__dot chatMock__dot--live"></div>
+          </div>
+
+          <div class="chatMock__body">
+            <div class="msg msg--user msg-anim msg-anim-1">
+              torneos mixtos en málaga este fin de semana
+            </div>
+
+            <div class="msg msg--bot msg-anim msg-anim-2">
+              He encontrado <strong>3 torneos</strong> que encajan:
+            </div>
+
+            <div class="msg msg--bot msg-anim msg-anim-3">
+              <div class="tournament-card">
+                <strong class="tournament-name">I MEGATORNEO EXPRES SURCARAVAN</strong>
+                <div class="tournament-details">
+                  Sáb 7 de febrero<br/>
+                  Benalmádena<br/>
+                  Masc · Fem · Mixto<br/>
+                  20€
+                </div>
+                <div class="tournament-actions">
+                  <span class="tournament-link">Inscribirme →</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="msg msg--bot msg-anim msg-anim-4">
+              <div class="tournament-card">
+                <strong class="tournament-name">TORNEO EXPRESS PADEL MIJAS</strong>
+                <div class="tournament-details">
+                  Dom 8 de febrero<br/>
+                  Mijas Costa<br/>
+                  Mixto 3ª-4ª<br/>
+                  15€
+                </div>
+                <div class="tournament-actions">
+                  <span class="tournament-link">Inscribirme →</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======= FUENTES ======= -->
+      <section id="fuentes" class="section anim-on-scroll">
+        <div class="section__header">
+          <span class="section__label">Fuentes de datos</span>
+          <h2>Buscamos donde tú ya buscas</h2>
+        </div>
         
+        <div class="sources-row">
+          <div class="source-pill">Padelnest</div>
+          <div class="source-pill">Xporty</div>
+          <div class="source-pill">Vola</div>
+          <div class="source-pill source-pill--soon">+ más en camino</div>
+        </div>
+        
+        <p class="sources-note">
+          Agregamos torneos de múltiples plataformas para que no se te escape ninguno.
+        </p>
+      </section>
+
+      <!-- ======= APP ======= -->
+      <section id="app" class="section section--app anim-on-scroll">
+        <span class="section__label">App</span>
+        <h2>Úsalo como app</h2>
         <p>
           Padelia funciona en tu móvil como cualquier app. 
           Entra al chat para instalarlo.
         </p>
-        
         <div class="appRow">
-          <a class="btn btn--primary" href="./chat/">Chat</a>
+          <a class="btn btn--primary" href="./chat/">Buscar torneos</a>
         </div>
       </section>
 
-
+      <!-- ======= FOOTER ======= -->
       <footer class="footer">
         <div class="footer__inner">
           <span>© <span id="year"></span> Padelia</span>
@@ -160,13 +192,13 @@
     </main>
 
     <script>
+      // Chat redirect
       const input = document.getElementById("prompt");
       const go = document.getElementById("go");
 
       function startChat() {
         const q = (input.value || "").trim();
-        const target = "./chat/?q=" + encodeURIComponent(q);
-        window.location.href = target;
+        window.location.href = "./chat/?q=" + encodeURIComponent(q);
       }
 
       go.addEventListener("click", startChat);
@@ -175,6 +207,21 @@
       });
 
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Scroll animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll(".anim-on-scroll").forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>
