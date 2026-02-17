@@ -1,4 +1,4 @@
-const CACHE_NAME = 'padelia-20260214b';
+const CACHE_NAME = 'padelia-20260217a';
 
 const urlsToCache = [
   '/padelia-web/chat/',
