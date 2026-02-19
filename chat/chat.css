@@ -211,7 +211,7 @@ body{
 .tournament-name strong,
 .tournament-name a strong{
   margin: 0;
-  color: var(--p-brand-light);
+  color: var(--p-brand-dark);
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -219,7 +219,7 @@ body{
 }
 
 .tournament-title-link{
-  color: var(--p-brand-light);
+  color: var(--p-brand-dark);
   text-decoration: none;
 }
 
@@ -264,7 +264,14 @@ body{
 }
 
 .msg .actionsRow .btn.btn--ghost{
-  background: transparent;
+  background: rgba(var(--p-accent-rgb),0.15);
+  border-color: rgba(var(--p-accent-rgb),0.30);
+  color: var(--text-main);
+}
+
+.msg .actionsRow .btn.btn--ghost:hover{
+  background: rgba(var(--p-accent-rgb),0.25);
+  border-color: rgba(var(--p-accent-rgb),0.45);
 }
 
 .msg .actionsRow .btn--primary::after{
