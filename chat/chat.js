@@ -1,20 +1,42 @@
 import { callApi } from "./lib/api.js";
 import { addMsg, addTyping, autoGrow, setEmptyMode } from "./lib/ui.js";
 
+const GMAPS_KEY = "AIzaSyBkUmL-5VX4IRNO8tdNe68xaSs-OcCCaBk";
+
 const messagesEl = document.getElementById("messages");
 const form = document.getElementById("form");
 const input = document.getElementById("input");
 const sendBtn = document.getElementById("send");
+const nearMeBtn = document.getElementById("nearMeBtn");
+const timeChips = document.querySelectorAll('.chip--time');
+const genreChips = document.querySelectorAll('.chip--genero');
+
+let selectedTime = '';
+let selectedGenre = '';
 
 function updateSendState() {
   sendBtn.disabled = (input.value || "").trim().length === 0;
+}
+
+function buildQuery() {
+  const parts = ['Torneos'];
+  if (selectedGenre) parts[0] = `Torneos ${selectedGenre}`;
+  const locText = nearMeBtn.classList.contains('is-active')
+    ? nearMeBtn.textContent.trim()
+    : '';
+  if (locText) parts.push(`en ${locText}`);
+  if (selectedTime) parts.push(selectedTime);
+
+  input.value = parts.length > 1 || selectedGenre ? parts.join(' ') : '';
+  autoGrow(input);
+  updateSendState();
 }
 
 function seed() {
   addMsg(messagesEl, "bot",
     "Hola 👋 Soy Padelia.\n\n" +
     "Dime qué te apetece jugar y dónde, y busco torneos para ti.\n\n" +
-    "Ejemplo: “este finde cerca de Mijas, nivel 3”."
+    "Ejemplo: \u201Ceste finde cerca de Mijas, nivel 3\u201D."
   );
 }
 
@@ -29,12 +51,86 @@ function hydrateFromQuery() {
   }
 }
 
-// Init
+// =====================
+// QUICK FILTERS
+// =====================
+
+nearMeBtn.addEventListener('click', async () => {
+  nearMeBtn.textContent = 'Localizando...';
+  nearMeBtn.disabled = true;
+
+  try {
+    const pos = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        timeout: 8000,
+        maximumAge: 300000,
+      });
+    });
+
+    const { latitude, longitude } = pos.coords;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=es&key=${GMAPS_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    let city = '';
+    if (data.results && data.results.length > 0) {
+      const comp = data.results[0].address_components || [];
+      const loc = comp.find(c => c.types.includes('locality'));
+      city = loc ? loc.long_name : data.results[0].formatted_address.split(',')[0];
+    }
+
+    if (city) {
+      nearMeBtn.textContent = city;
+      nearMeBtn.classList.add('is-active');
+    } else {
+      nearMeBtn.textContent = 'Cerca de mí';
+    }
+  } catch (err) {
+    console.error('Geolocation error:', err);
+    nearMeBtn.textContent = 'Cerca de mí';
+  }
+
+  nearMeBtn.disabled = false;
+  buildQuery();
+});
+
+timeChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (chip.classList.contains('is-active')) {
+      chip.classList.remove('is-active');
+      selectedTime = '';
+    } else {
+      timeChips.forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+      selectedTime = chip.dataset.value;
+    }
+    buildQuery();
+  });
+});
+
+genreChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (chip.classList.contains('is-active')) {
+      chip.classList.remove('is-active');
+      selectedGenre = '';
+    } else {
+      genreChips.forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+      selectedGenre = chip.dataset.value;
+    }
+    buildQuery();
+  });
+});
+
+// =====================
+// INIT
+// =====================
+
 seed();
 hydrateFromQuery();
 
 requestAnimationFrame(() => {
-  messagesEl.scrollTop = 0;  // Para el mensaje inicial, queremos verlo arriba
+  messagesEl.scrollTop = 0;
 });
 
 input.focus();
@@ -69,16 +165,15 @@ form.addEventListener("submit", async (e) => {
   try {
     const data = await callApi(text);
     console.log("API response:", data);
-    
+
     typing.remove();
     addMsg(messagesEl, "bot", data.answer || "No he podido generar respuesta.");
-    
-    } catch (err) {
+
+  } catch (err) {
     typing.remove();
     addMsg(messagesEl, "bot",
-        "Vaya, no he podido buscar torneos ahora mismo. Inténtalo de nuevo en unos segundos 🙏"
+      "Vaya, no he podido buscar torneos ahora mismo. Inténtalo de nuevo en unos segundos 🙏"
     );
     console.error(err);
-    }
-
+  }
 });

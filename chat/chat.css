@@ -51,8 +51,8 @@ body{
 }
 
 .chatTop .brand__icon{
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
 }
 
 .chatTop .brand__name{
@@ -279,6 +279,48 @@ body{
 }
 
 /* =====================
+   QUICK FILTERS
+   ===================== */
+
+.quick-filters{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 4px 18px 6px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.quick-filters::-webkit-scrollbar{ display: none; }
+
+.chip{
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--p-accent-rgb),0.30);
+  background: rgba(var(--p-accent-rgb),0.15);
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chip:hover{
+  background: rgba(var(--p-accent-rgb),0.25);
+  border-color: rgba(var(--p-accent-rgb),0.45);
+}
+
+.chip.is-active{
+  border-color: var(--p-accent);
+  background: rgba(var(--p-accent-rgb),0.35);
+  color: var(--p-accent);
+  font-weight: 600;
+}
+
+/* =====================
    COMPOSER
    ===================== */
 
@@ -311,7 +353,8 @@ body{
   padding: 14px 16px;
   border-radius: 999px;
   background: rgba(0,0,0,0.26);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(var(--p-brand-rgb),0.25);
+  box-shadow: 0 0 0 1px rgba(var(--p-brand-rgb),0.08);
 }
 
 .composer__input{

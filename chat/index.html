@@ -59,13 +59,23 @@
     </main>
 
     <footer class="composer" id="composer">
+      <div id="quickFilters" class="quick-filters">
+        <button class="chip" id="nearMeBtn">Cerca de mí</button>
+        <button class="chip chip--time" data-value="este finde">Este finde</button>
+        <button class="chip chip--time" data-value="próxima semana">Próxima semana</button>
+        <button class="chip chip--time" data-value="este mes">Este mes</button>
+        <button class="chip chip--genero" data-value="mixtos">Mixto</button>
+        <button class="chip chip--genero" data-value="masculinos">Masculino</button>
+        <button class="chip chip--genero" data-value="femeninos">Femenino</button>
+
+      </div>
       <form id="form" class="composer__inner" autocomplete="off">
         <div class="composer__inputWrap">
           <textarea
             id="input"
             class="composer__input"
             rows="1"
-            placeholder="Torneos mixtos en Madrid este finde..."
+            placeholder="Quiero torneos mixtos en Mijas este finde"
             enterkeyhint="send"></textarea>
         </div>
         <button id="send" class="composer__btn" type="submit" disabled aria-label="Enviar">
