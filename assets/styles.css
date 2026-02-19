@@ -683,6 +683,13 @@ h1{
 }
 
 @media (max-width: 560px) {
+  body {
+    background:
+      radial-gradient(600px 350px at 50% 8%, rgba(var(--p-brand-rgb),0.07), transparent 62%),
+      radial-gradient(500px 300px at 80% 2%, rgba(var(--p-accent-rgb),0.05), transparent 58%),
+      radial-gradient(600px 300px at 50% 105%, rgba(var(--p-accent-rgb),0.04), transparent 70%),
+      var(--bg);
+  }
   .container { padding: 0 16px 48px; }
   .topbar__inner { padding: 14px 16px; gap: 12px; }
   .hero { padding: 48px 0 32px; }
