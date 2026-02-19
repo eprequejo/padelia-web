@@ -148,8 +148,8 @@ body{
 }
 
 .msg--user{
-  background: rgba(111,45,189,0.18);
-  border: 1px solid rgba(111,45,189,0.28);
+  background: rgba(var(--p-brand-rgb),0.18);
+  border: 1px solid rgba(var(--p-brand-rgb),0.28);
   color: var(--text-main);
 }
 
@@ -211,7 +211,7 @@ body{
 .tournament-name strong,
 .tournament-name a strong{
   margin: 0;
-  color: var(--padelia-purple-light);
+  color: var(--p-brand-light);
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -219,7 +219,7 @@ body{
 }
 
 .tournament-title-link{
-  color: var(--padelia-purple-light);
+  color: var(--p-brand-light);
   text-decoration: none;
 }
 
@@ -259,8 +259,8 @@ body{
 }
 
 .msg .actionsRow .btn.btn--primary{
-  background: var(--padelia-purple);
-  box-shadow: 0 4px 12px rgba(111,45,189,0.35);
+  background: var(--p-brand);
+  box-shadow: 0 4px 12px rgba(var(--p-brand-rgb),0.35);
 }
 
 .msg .actionsRow .btn.btn--ghost{
@@ -326,14 +326,14 @@ body{
 }
 
 .composer__btn{
-  border: 1px solid var(--padelia-purple);
-  background: var(--padelia-purple);
-  color: #ffffff;
+  border: 1px solid var(--p-brand);
+  background: var(--p-brand);
+  color: var(--p-brand-contrast);
   padding: 12px 16px;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
-  box-shadow: 0 6px 20px rgba(111,45,189,0.25);
+  box-shadow: 0 6px 20px rgba(var(--p-brand-rgb),0.25);
   transition: transform .08s ease, background .15s ease, box-shadow .15s ease, opacity .15s ease;
   display: inline-flex;
   align-items: center;
@@ -342,8 +342,8 @@ body{
 }
 
 .composer__btn:hover{
-  background: var(--padelia-purple-dark);
-  box-shadow: 0 8px 26px rgba(111,45,189,0.30);
+  background: var(--p-brand-dark);
+  box-shadow: 0 8px 26px rgba(var(--p-brand-rgb),0.30);
 }
 
 .composer__btn:active{ transform: translateY(1px); }
@@ -367,17 +367,17 @@ body{
 
 /* Focus states */
 .composer__inputWrap:focus-within{
-  border-color: rgba(111,45,189,0.55);
+  border-color: rgba(var(--p-brand-rgb),0.55);
   box-shadow:
-    0 0 0 1px rgba(111,45,189,0.35),
-    0 0 0 6px rgba(111,45,189,0.12);
+    0 0 0 1px rgba(var(--p-brand-rgb),0.35),
+    0 0 0 6px rgba(var(--p-brand-rgb),0.12);
 }
 
 .composer__btn:focus-visible{
   outline: none;
   box-shadow:
-    0 0 0 2px rgba(111,45,189,0.55),
-    0 0 0 6px rgba(111,45,189,0.20);
+    0 0 0 2px rgba(var(--p-brand-rgb),0.55),
+    0 0 0 6px rgba(var(--p-brand-rgb),0.20);
 }
 
 /* =====================
@@ -412,8 +412,8 @@ body.chat--empty .composer__inputWrap{
 
 .btn-install{
   padding: 8px 14px;
-  background: rgba(111, 45, 189, 0.2);
-  border: 1px solid rgba(111, 45, 189, 0.4);
+  background: rgba(var(--p-brand-rgb), 0.2);
+  border: 1px solid rgba(var(--p-brand-rgb), 0.4);
   border-radius: 999px;
   color: var(--text-main);
   font-size: 13px;
@@ -423,8 +423,8 @@ body.chat--empty .composer__inputWrap{
 }
 
 .btn-install:hover{
-  background: rgba(111, 45, 189, 0.3);
-  border-color: rgba(111, 45, 189, 0.6);
+  background: rgba(var(--p-brand-rgb), 0.3);
+  border-color: rgba(var(--p-brand-rgb), 0.6);
 }
 
 /* =====================
@@ -439,7 +439,7 @@ body.chat--empty .composer__inputWrap{
   max-width: 320px;
   width: calc(100% - 32px);
   background: rgba(11, 15, 25, 0.98);
-  border: 1px solid rgba(111, 45, 189, 0.4);
+  border: 1px solid rgba(var(--p-brand-rgb), 0.4);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
@@ -485,7 +485,7 @@ body.chat--empty .composer__inputWrap{
 .install-toast__inner strong{
   display: block;
   margin-bottom: 12px;
-  color: var(--padelia-purple-light);
+  color: var(--p-brand-light);
   font-size: 16px;
 }
 
