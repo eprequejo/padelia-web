@@ -10,9 +10,9 @@ body{
   min-height: 100vh;
 
   background:
-    radial-gradient(1150px 600px at 50% 18%, rgba(var(--p-brand-rgb),0.12), transparent 62%),
-    radial-gradient(950px 500px at 80% 5%, rgba(var(--p-accent-rgb),0.08), transparent 58%),
-    radial-gradient(1100px 520px at 50% 105%, rgba(var(--p-accent-rgb),0.06), transparent 70%),
+    radial-gradient(1150px 600px at 50% 18%, rgba(var(--p-brand-rgb),0.07), transparent 62%),
+    radial-gradient(950px 500px at 80% 5%, rgba(var(--p-accent-rgb),0.05), transparent 58%),
+    radial-gradient(1100px 520px at 50% 105%, rgba(var(--p-accent-rgb),0.04), transparent 70%),
     var(--bg);
 
   background-repeat: no-repeat;
@@ -265,8 +265,8 @@ body{
 
 .hero__badge{
   display: inline-block;
-  background: rgba(var(--p-brand-rgb),0.15);
-  border: 1px solid rgba(var(--p-brand-rgb),0.30);
+  background: rgba(var(--p-accent-rgb),0.15);
+  border: 1px solid rgba(var(--p-accent-rgb),0.30);
   color: rgba(249,250,251,0.85);
   font-size: 13px;
   font-weight: 600;
@@ -282,7 +282,8 @@ h1{
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 800;
-  color: var(--p-brand);
+  color: var(--p-brand-dark);
+  opacity: 0.85 !important;
 }
 
 .gradient-text{
