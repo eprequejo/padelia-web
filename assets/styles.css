@@ -9,13 +9,11 @@ body{
   color: var(--text-main);
   min-height: 100vh;
 
-
   background:
-    radial-gradient(1150px 600px at 50% 18%, rgba(var(--p-brand-rgb),0.14), transparent 62%),
-    radial-gradient(950px 500px at 80% 5%, rgba(var(--p-brand-rgb),0.06), transparent 58%),
-    radial-gradient(1100px 520px at 50% 105%, rgba(var(--p-brand-rgb),0.06), transparent 70%),
+    radial-gradient(1150px 600px at 50% 18%, rgba(var(--p-brand-rgb),0.12), transparent 62%),
+    radial-gradient(950px 500px at 80% 5%, rgba(var(--p-accent-rgb),0.08), transparent 58%),
+    radial-gradient(1100px 520px at 50% 105%, rgba(var(--p-accent-rgb),0.06), transparent 70%),
     var(--bg);
-
 
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -339,7 +337,8 @@ h1{
   padding: 14px 16px;
   border-radius: 999px;
   background: rgba(0,0,0,0.22);
-  border: 1px solid var(--border-soft);
+  border: 1px solid rgba(var(--p-brand-rgb),0.25);
+  box-shadow: 0 0 0 1px rgba(var(--p-brand-rgb),0.08);
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
