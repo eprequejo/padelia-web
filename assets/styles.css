@@ -5,7 +5,8 @@ html,body{ height:100%; }
 
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  /* font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; */
+  font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   color: var(--text-main);
   min-height: 100vh;
 
@@ -259,7 +260,7 @@ body{
    ======================================== */
 
 .hero{
-  padding: 62px 0 20px;
+  padding: 84px 0 20px;
   text-align: center;
 }
 
