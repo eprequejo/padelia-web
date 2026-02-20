@@ -259,7 +259,7 @@ body{
    ======================================== */
 
 .hero{
-  padding: 88px 0 40px;
+  padding: 62px 0 20px;
   text-align: center;
 }
 
@@ -385,7 +385,7 @@ h1{
 
 .demo{
   max-width: 480px;
-  margin: 0 auto 20px;
+  margin: 42px auto;
   padding: 0 20px;
 }
 
@@ -495,7 +495,7 @@ h1{
    ======================================== */
 
 .section{
-  margin-top: 48px;
+  margin-top: 42px;
   padding: 32px;
   border-radius: var(--r-xl);
   border: 1px solid rgba(255,255,255,0.08);
@@ -691,7 +691,7 @@ h1{
   }
   .container { padding: 0 16px 48px; }
   .topbar__inner { padding: 14px 16px; gap: 12px; }
-  .hero { padding: 48px 0 32px; }
+  .hero { padding: 48px 0 16px; }
   
   h1 { font-size: 22px; line-height: 1.15; margin-bottom: 14px; letter-spacing: 0.05em; }
   .subtitle { font-size: 16px; margin: 14px 0 24px; max-width: 100%; }
@@ -702,9 +702,9 @@ h1{
   .chatbox__inputWrap { padding: 14px 16px; }
   .chatbox__btn { padding: 14px 18px; }
 
-  .demo { padding: 0 8px; }
+  .demo { padding: 0 8px; margin: 24px auto; }
 
-  .section { padding: 24px 20px; margin-top: 32px; }
+  .section { padding: 24px 20px; margin-top: 24px; }
   .section h2 { font-size: 22px; }
   .section p { font-size: 14px; }
 
