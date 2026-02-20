@@ -286,6 +286,7 @@ body{
 .quick-filters{
   max-width: 980px;
   margin: 0 auto;
+  align-items: center;
   padding: 4px 18px 6px;
   display: flex;
   gap: 8px;
@@ -334,7 +335,7 @@ body{
   background: rgba(11,15,25,0.86);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 12px 0 calc(10px + var(--safe-bottom));
+  padding: 0px 0 calc(10px + var(--safe-bottom));
 }
 
 .composer__inner{
