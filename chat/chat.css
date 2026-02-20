@@ -33,8 +33,10 @@ body{
   left: 0;
   right: 0;
   z-index: 20;
-  background: transparent;
-  border-bottom: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(11,15,25,0.72);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   padding-top: var(--safe-top);
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
@@ -559,6 +561,12 @@ body.chat--empty .composer__inputWrap{
 }
 
 @media (max-width: 640px){
+  .chatTop{
+    background: rgba(11,15,25,0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: none;
+  }
   .chatTop__link[href*="como-funciona"]{ display: none; }
   .chatTop .brand__name{ display: none; }
   .chatTop__link{ font-size: 12px; opacity: .9; }
