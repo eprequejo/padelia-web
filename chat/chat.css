@@ -577,7 +577,7 @@ body.chat--empty .composer__inputWrap{
   .messages{ padding: 16px 0 14px; }
   .msg{ max-width: 94%; padding: 11px 12px; border-radius: 14px; }
 
-  .composer{ padding: 10px 0 calc(10px + var(--safe-bottom)); }
+  .composer{ padding: 0px 0 calc(10px + var(--safe-bottom)); }
   .composer__inputWrap{ padding: 12px 14px; }
   .composer__btn{ padding: 10px 14px; font-size: 13px; }
 
