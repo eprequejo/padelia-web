@@ -153,22 +153,21 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const text = (input.value || "").trim();
   if (!text) return;
-
   addMsg(messagesEl, "user", text);
   input.value = "";
   autoGrow(input);
   updateSendState();
   input.focus();
-
   const typing = addTyping(messagesEl);
-
   try {
     const data = await callApi(text);
     console.log("API response:", data);
-
     typing.remove();
     addMsg(messagesEl, "bot", data.answer || "No he podido generar respuesta.");
-
+    // Clear active chips after response
+    document.querySelectorAll('.is-active').forEach(c => c.classList.remove('is-active'));
+    selectedTime = '';
+    selectedGenre = '';
   } catch (err) {
     typing.remove();
     addMsg(messagesEl, "bot",
