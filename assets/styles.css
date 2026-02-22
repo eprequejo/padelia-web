@@ -779,6 +779,14 @@ h1{
     padding: 0 16px 48px;
     padding-top: 52px; 
   }
+
+  /* Topbar transforms into search bar on scroll */
+  .topbar.is-search-mode .brand__name,
+  .topbar.is-search-mode .nav,
+  .topbar.is-search-mode .actions{
+    display: none;
+  }
+
   .topbar__inner { padding: 14px 16px; gap: 12px; }
   .hero { padding: 48px 0 16px; }
   
