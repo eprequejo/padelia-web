@@ -33,6 +33,16 @@
           <a href="#app">App</a>
         </nav>
 
+        <div class="topbar__search" id="topbarSearch">
+          <input
+            id="promptSticky"
+            class="topbar__searchInput"
+            type="text"
+            placeholder="Busca tu torneo..."
+            autocomplete="off"
+          />
+        </div>
+
         <div class="actions">
           <a class="btn btn--primary" href="./chat/">Chat</a>
         </div>
@@ -67,7 +77,7 @@
         </p>
       </section>
 
-            <!-- ======= FUENTES ======= -->
+      <!-- ======= FUENTES ======= -->
       <section id="fuentes" class="section anim-on-scroll">
         <div class="section__header">
           <span class="section__label">Dónde buscamos</span>
@@ -81,10 +91,13 @@
           <a class="source-pill" href="https://padelwarrior.es" target="_blank" rel="noopener">PadelWarrior</a>
           <div class="source-pill source-pill--soon">+ más en camino</div>
         </div>
-
-        <p class="sources-note">
-          Más de 200 torneos indexados de múltiples plataformas para que no se te escape ninguno.
-        </p>
+        <div class="sources-stats">
+          <div class="stat"><span class="stat__number">+200</span><span class="stat__label">torneos abiertos</span></div>
+          <div class="stat"><span class="stat__number">+120</span><span class="stat__label">clubes</span></div>
+          <div class="stat"><span class="stat__number">+20</span><span class="stat__label">provincias</span></div>
+          <div class="stat"><span class="stat__number">4</span><span class="stat__label">plataformas</span></div>
+          <div class="stat"><span class="stat__number">24h</span><span class="stat__label">actualización</span></div>
+        </div>
       </section>
 
       <!-- ======= CÓMO FUNCIONA ======= -->
@@ -224,6 +237,27 @@
       );
 
       document.querySelectorAll(".anim-on-scroll").forEach((el) => observer.observe(el));
+
+      // Sticky search bar
+      const heroBox = document.querySelector('.chatbox');
+      const topbarSearch = document.getElementById('topbarSearch');
+      const promptSticky = document.getElementById('promptSticky');
+
+      const stickyObserver = new IntersectionObserver(
+        ([entry]) => {
+          topbarSearch.classList.toggle('is-visible', !entry.isIntersecting);
+        },
+        { threshold: 0 }
+      );
+      stickyObserver.observe(heroBox);
+
+      // Sync: sticky input → redirect
+      promptSticky.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const q = (promptSticky.value || '').trim();
+          window.location.href = './chat/?q=' + encodeURIComponent(q);
+        }
+      });
     </script>
   </body>
 </html>

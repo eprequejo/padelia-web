@@ -123,6 +123,7 @@ body{
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 20px 60px;
+  padding-top: 60px;
 }
 
 .hide-mobile { display: inline; }
@@ -130,12 +131,14 @@ body{
 /* ========================================
    TOPBAR
    ======================================== */
-
 .topbar{
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   background: rgba(11,15,25,0.55);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
@@ -147,6 +150,41 @@ body{
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+.topbar__search{
+  flex: 1;
+  max-width: 360px;
+  display: none;
+  margin-left: auto;
+}
+
+.topbar__search.is-visible{
+  display: flex;
+}
+
+.topbar__searchInput{
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--p-brand-rgb),0.25);
+  background: rgba(0,0,0,0.25);
+  color: var(--text-main);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.topbar__searchInput:focus{
+  border-color: rgba(var(--p-brand-rgb),0.55);
+}
+
+.topbar__searchInput::placeholder{
+  color: rgba(249,250,251,0.35);
+}
+
+.topbar__search.is-visible ~ .actions{
+  margin-left: 10px;
 }
 
 .brand{
@@ -611,11 +649,40 @@ h1{
   color: var(--text-muted);
 }
 
-.sources-note{
+/* .sources-note{
   margin-top: 18px;
   text-align: center;
   font-size: 14px;
   color: var(--text-muted);
+} */
+
+.sources-stats{
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.stat{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat__number{
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--p-brand-dark);
+  letter-spacing: -0.02em;
+}
+
+.stat__label{
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 /* App section */
@@ -690,7 +757,10 @@ h1{
       radial-gradient(600px 300px at 50% 105%, rgba(var(--p-accent-rgb),0.04), transparent 70%),
       var(--bg);
   }
-  .container { padding: 0 16px 48px; }
+  .container { 
+    padding: 0 16px 48px;
+    padding-top: 52px; 
+  }
   .topbar__inner { padding: 14px 16px; gap: 12px; }
   .hero { padding: 48px 0 16px; }
   
@@ -713,4 +783,8 @@ h1{
   .step-card h3 { font-size: 14px; }
 
   .msg { max-width: 90%; font-size: 13px; }
+
+  .sources-stats{ gap: 20px; }
+  .stat__number{ font-size: 1.25rem; }
+  .stat__label{ font-size: 0.7rem; }
 }

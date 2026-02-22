@@ -334,6 +334,7 @@ body{
   z-index: 30;
   background: rgba(11,15,25,0.86);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255,255,255,0.06);
   padding: 0px 0 calc(10px + var(--safe-bottom));
 }
@@ -574,7 +575,10 @@ body.chat--empty .composer__inputWrap{
 
   .chatWrap{ padding-top: 44px; }
 
-  .messages{ padding: 16px 0 14px; }
+  .messages{ 
+    padding: 16px 0 14px;
+    padding-top: 24px; 
+  }
   .msg{ max-width: 94%; padding: 11px 12px; border-radius: 14px; }
 
   .composer{ padding: 0px 0 calc(10px + var(--safe-bottom)); }
