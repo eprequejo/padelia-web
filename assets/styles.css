@@ -784,8 +784,8 @@ h1{
     padding-top: 52px; 
   }
 
-  /* Topbar transforms into search bar on scroll */
   .topbar.is-search-mode .brand__name,
+  .topbar.is-search-mode .brand__badge,
   .topbar.is-search-mode .nav,
   .topbar.is-search-mode .actions{
     display: none;
