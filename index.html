@@ -10,6 +10,12 @@
       content="Dile qué torneo buscas y Padelia lo encuentra por ti. Sin filtros, sin saltar entre apps. Un buscador conversacional de torneos de pádel en España."
     />
 
+    <script>
+      if (location.protocol !== 'https:' && !location.hostname.includes('localhost')) {
+        location.replace('https:' + location.href.substring(location.protocol.length));
+      }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/palette-lima-azul.css" />
     <link rel="stylesheet" href="./assets/styles.css" />
