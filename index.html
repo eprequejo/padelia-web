@@ -33,18 +33,13 @@
           <a href="#app">App</a>
         </nav>
 
-        <div class="topbar__search" id="topbarSearch">
-          <input
-            id="promptSticky"
-            class="topbar__searchInput"
-            type="text"
-            placeholder="Busca tu torneo..."
-            autocomplete="off"
-          />
-        </div>
-
         <div class="actions">
           <a class="btn btn--primary" href="./chat/">Chat</a>
+        </div>
+
+        <div class="topbar__searchBar">
+          <input id="promptSticky" type="text" placeholder="Torneo en Málaga este finde" autocomplete="off" />
+          <button id="goSticky">Enviar</button>
         </div>
       </div>
     </header>
@@ -65,7 +60,7 @@
               id="prompt"
               class="chatbox__input"
               type="text"
-              placeholder="Quiero un torneo mixto en Madrid este finde, femenino, nivel 3"
+              placeholder="Torneo en Málaga este finde"
               autocomplete="off"
             />
           </div>
@@ -238,26 +233,30 @@
 
       document.querySelectorAll(".anim-on-scroll").forEach((el) => observer.observe(el));
 
-      // Sticky search bar
+      // Sticky search mode
       const heroBox = document.querySelector('.chatbox');
-      const topbarSearch = document.getElementById('topbarSearch');
+      const topbar = document.querySelector('.topbar');
       const promptSticky = document.getElementById('promptSticky');
+      const goSticky = document.getElementById('goSticky');
+
+      function startStickyChat() {
+        const q = (promptSticky.value || '').trim();
+        window.location.href = './chat/?q=' + encodeURIComponent(q);
+      }
 
       const stickyObserver = new IntersectionObserver(
         ([entry]) => {
-          topbarSearch.classList.toggle('is-visible', !entry.isIntersecting);
+          topbar.classList.toggle('is-search-mode', !entry.isIntersecting);
         },
         { threshold: 0 }
       );
       stickyObserver.observe(heroBox);
 
-      // Sync: sticky input → redirect
       promptSticky.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const q = (promptSticky.value || '').trim();
-          window.location.href = './chat/?q=' + encodeURIComponent(q);
-        }
+        if (e.key === 'Enter') startStickyChat();
       });
+      goSticky.addEventListener('click', startStickyChat);
+
     </script>
   </body>
 </html>
