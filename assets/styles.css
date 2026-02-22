@@ -751,6 +751,7 @@ h1{
 
 @media (max-width: 560px) {
   body {
+    background-attachment: scroll;
     background:
     radial-gradient(600px 400px at 50% 12%, rgba(var(--p-brand-rgb),0.05), transparent 70%),
     radial-gradient(500px 350px at 80% 5%, rgba(var(--p-accent-rgb),0.03), transparent 65%),
