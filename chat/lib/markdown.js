@@ -127,6 +127,7 @@ export function renderResponse(text) {
 
     const urlInscripcion = addUTMParams(t.url_inscripcion);
     const urlInfo = addUTMParams(t.url_info);
+    const urlCartel = t.url_cartel;
     
     html += `
       <p class="tournament-name">
@@ -139,6 +140,7 @@ export function renderResponse(text) {
       <div class="actionsRow">
         <a href="${urlInscripcion}" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-tournament="${t.nombre}">Inscribirme</a>
         <a href="${urlInfo}" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" data-tournament="${t.nombre}">Más info</a>
+        ${urlCartel ? `<a href="${urlCartel}" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" data-tournament="${t.nombre}">Cartel</a>` : ''}
       </div>
     `;
   });
