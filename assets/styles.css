@@ -775,6 +775,10 @@ h1{
     radial-gradient(600px 350px at 50% 105%, rgba(var(--p-accent-rgb),0.03), transparent 75%),
     var(--bg);
   }
+  .bg{
+    mask-image:
+      radial-gradient(80% 60% at 50% 20%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+  }
   .container { 
     padding: 0 16px 48px;
     padding-top: 52px; 
