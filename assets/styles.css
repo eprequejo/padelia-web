@@ -808,6 +808,8 @@ h1{
   h1 { font-size: 25px; line-height: 1.15; margin-bottom: 14px; letter-spacing: 0.05em; }
   .subtitle { font-size: 16px; margin: 14px 0 24px; max-width: 100%; }
   .hero__hint { font-size: 13px; }
+  .hint-sep::after { content: '\A'; white-space: pre; }
+  .hint-sep { font-size: 0; }
   .hero__badge { font-size: 12px; padding: 5px 12px; }
 
   .chatbox { gap: 10px; }
