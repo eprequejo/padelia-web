@@ -686,19 +686,28 @@ h1{
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  padding: 0 24px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.stat:last-child{
+  border-right: none;
 }
 
 .stat__number{
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--p-brand-dark);
   letter-spacing: -0.02em;
+  text-shadow: 0 0 20px rgba(var(--p-brand-rgb), 0.3);
 }
 
 .stat__label{
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  font-size: 0.75rem;
+  color: rgba(249,250,251,0.65);
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
   letter-spacing: 0.06em;
 }
 
@@ -817,6 +826,7 @@ h1{
   .msg { max-width: 90%; font-size: 13px; }
 
   .sources-stats{ gap: 20px; }
-  .stat__number{ font-size: 1.25rem; }
+  .stat{ border-right: none; padding: 0; }
+  .stat__number{ font-size: 1.5rem; }
   .stat__label{ font-size: 0.7rem; }
 }
