@@ -333,7 +333,7 @@ body{
 
 h1{
   margin: 0 0 16px;
-  font-size: clamp(26px, 4vw, 42px);
+  font-size: clamp(22px, 3.2vw, 36px);
   line-height: 1.05;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -768,12 +768,18 @@ h1{
 
 @media (max-width: 560px) {
   body {
-    background-attachment: scroll;
+    background: var(--bg);
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 500px;
     background:
-      radial-gradient(100% 400px at 50% 12%, rgba(var(--p-brand-rgb),0.05), transparent 70%),
-      radial-gradient(100% 350px at 50% 5%, rgba(var(--p-accent-rgb),0.03), transparent 65%),
-      radial-gradient(100% 350px at 50% 105%, rgba(var(--p-accent-rgb),0.03), transparent 75%),
-    var(--bg);
+      radial-gradient(100% 400px at 50% 12%, rgba(var(--p-brand-rgb),0.08), transparent 70%),
+      radial-gradient(100% 350px at 50% 5%, rgba(var(--p-accent-rgb),0.05), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
   }
   .container { 
     padding: 0 16px 48px;
@@ -790,7 +796,7 @@ h1{
   .topbar__inner { padding: 14px 16px; gap: 12px; }
   .hero { padding: 48px 0 16px; }
   
-  h1 { font-size: 22px; line-height: 1.15; margin-bottom: 14px; letter-spacing: 0.05em; }
+  h1 { font-size: 25px; line-height: 1.15; margin-bottom: 14px; letter-spacing: 0.05em; }
   .subtitle { font-size: 16px; margin: 14px 0 24px; max-width: 100%; }
   .hero__hint { font-size: 13px; }
   .hero__badge { font-size: 12px; padding: 5px 12px; }
