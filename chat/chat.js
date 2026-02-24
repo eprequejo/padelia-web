@@ -1,4 +1,5 @@
-import { callApi } from "./lib/api.js";
+import { callApi, getApiBase } from "./lib/api.js";
+import { getUserId } from "./lib/storage.js";
 import { addMsg, addTyping, autoGrow, setEmptyMode } from "./lib/ui.js";
 
 const GMAPS_KEY = "AIzaSyBkUmL-5VX4IRNO8tdNe68xaSs-OcCCaBk";
@@ -32,12 +33,55 @@ function buildQuery() {
   updateSendState();
 }
 
-function seed() {
+async function seed() {
+  try {
+    const userId = getUserId();
+    const res = await fetch(`${getApiBase()}/user/${userId}/preferences`);
+    const prefs = await res.json();
+
+    if (prefs.zona && prefs.categoria) {
+      addMsg(messagesEl, "bot",
+        `¡Hola! Aquí Padelia de nuevo 👋\n\n¿Seguimos buscando torneos ${prefs.categoria} en ${prefs.zona}?`
+      );
+      addQuickAction(prefs);
+      return;
+    }
+    if (prefs.zona) {
+      addMsg(messagesEl, "bot",
+        `¡Hola! Aquí Padelia de nuevo 👋\n\n¿Seguimos buscando torneos en ${prefs.zona}?`
+      );
+      addQuickAction(prefs);
+      return;
+    }
+  } catch (e) {
+    console.log("No prefs found:", e);
+  }
+
   addMsg(messagesEl, "bot",
     "Hola 👋 Soy Padelia.\n\n" +
     "Dime qué te apetece jugar y dónde, y busco torneos para ti.\n\n" +
     "Ejemplo: \u201Ceste finde cerca de Mijas, nivel 3\u201D."
   );
+}
+
+function addQuickAction(prefs) {
+  const label = prefs.categoria
+    ? `Torneos ${prefs.categoria} en ${prefs.zona}`
+    : `Torneos en ${prefs.zona}`;
+  const bar = document.createElement('div');
+  bar.className = 'quick-bar';
+  bar.innerHTML = `<button class="chip--quick">${label}</button>`;
+  const btn = bar.querySelector('button');
+  btn.addEventListener('click', () => {
+    input.value = label;
+    autoGrow(input);
+    updateSendState();
+    form.requestSubmit();
+    bar.remove();
+  });
+  // Insert before the composer/footer
+  const composer = document.querySelector('.composer');
+  composer.parentNode.insertBefore(bar, composer);
 }
 
 function hydrateFromQuery() {
@@ -126,8 +170,7 @@ genreChips.forEach(chip => {
 // INIT
 // =====================
 
-seed();
-hydrateFromQuery();
+seed().then(() => hydrateFromQuery());
 
 requestAnimationFrame(() => {
   messagesEl.scrollTop = 0;

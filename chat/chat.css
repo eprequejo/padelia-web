@@ -322,6 +322,31 @@ body{
   font-weight: 600;
 }
 
+.quick-bar{
+  padding: 8px 16px 4px;
+  text-align: center;
+  background: var(--p-bg);
+}
+
+.chip--quick{
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--p-brand-rgb), 0.35);
+  background: rgba(var(--p-brand-rgb), 0.12);
+  color: var(--p-brand-light);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+
+.chip--quick:hover{
+  background: rgba(var(--p-brand-rgb), 0.22);
+  border-color: rgba(var(--p-brand-rgb), 0.55);
+}
+
 /* =====================
    COMPOSER
    ===================== */
