@@ -254,25 +254,28 @@ body{
 
 .msg .actionsRow .btn{
   text-decoration: none !important;
-  padding: 8px 12px;
+  padding: 5px 12px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: opacity 0.2s;
+  line-height: 1.4;
+}
+
+.msg .actionsRow .btn:hover{
+  opacity: 0.85;
 }
 
 .msg .actionsRow .btn.btn--primary{
   background: var(--p-brand);
-  box-shadow: 0 4px 12px rgba(var(--p-brand-rgb),0.35);
+  color: #0B0F19;
+  border: none;
 }
 
 .msg .actionsRow .btn.btn--ghost{
-  background: rgba(var(--p-accent-rgb),0.15);
-  border-color: rgba(var(--p-accent-rgb),0.30);
-  color: var(--text-main);
-}
-
-.msg .actionsRow .btn.btn--ghost:hover{
-  background: rgba(var(--p-accent-rgb),0.25);
-  border-color: rgba(var(--p-accent-rgb),0.45);
+  background: transparent;
+  border: 1px solid var(--p-accent);
+  color: var(--p-accent);
 }
 
 .msg .actionsRow .btn--primary::after{
@@ -630,8 +633,8 @@ body.chat--empty .composer__inputWrap{
   } 
 
   .msg .actionsRow .btn{
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 4px 10px;
+    font-size: 11px;
   }
 }
 
