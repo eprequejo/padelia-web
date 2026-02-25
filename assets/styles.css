@@ -756,6 +756,20 @@ h1{
   padding-top: 14px;
 }
 
+/* Telegram section */
+.section--telegram{ text-align: center; }
+.telegram-row{ margin-top: 20px; display: flex; justify-content: center; }
+.btn--telegram{
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border-radius: 999px;
+  border: 1px solid var(--p-brand); background: var(--p-brand);
+  color: var(--p-brand-contrast); font-weight: 700; font-size: 15px;
+  text-decoration: none; transition: background 0.2s, transform 0.08s;
+  box-shadow: 0 6px 20px rgba(var(--p-brand-rgb),0.25);
+}
+.btn--telegram:hover{ background: var(--p-brand-dark); box-shadow: 0 8px 26px rgba(var(--p-brand-rgb),0.30); }
+.btn--telegram:active{ transform: translateY(1px); }
+
 /* ========================================
    RESPONSIVE
    ======================================== */
