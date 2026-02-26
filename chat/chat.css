@@ -17,7 +17,6 @@ body{
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; */
   font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   color: var(--text-main);
   background: var(--bg);
@@ -77,7 +76,6 @@ body{
   text-decoration: underline;
 }
 
-/* Push install link and button to the right */
 #installLink{
   margin-left: auto;
 }
@@ -325,6 +323,20 @@ body{
   font-weight: 600;
 }
 
+.chip-sep{
+  width: 1px;
+  height: 20px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.12);
+}
+
+.chip--cat{
+  min-width: 32px;
+  text-align: center;
+  padding: 5px 10px;
+  font-variant-numeric: tabular-nums;
+}
+
 .quick-bar{
   padding: 8px 16px 4px;
   text-align: center;
@@ -446,7 +458,6 @@ body{
   transform: translateY(-1px);
 }
 
-/* Focus states */
 .composer__inputWrap:focus-within{
   border-color: rgba(var(--p-brand-rgb),0.55);
   box-shadow:
@@ -603,9 +614,9 @@ body.chat--empty .composer__inputWrap{
 
   .chatWrap{ padding-top: 44px; }
 
-  .messages{ 
+  .messages{
     padding: 16px 0 14px;
-    padding-top: 24px; 
+    padding-top: 24px;
   }
   .msg{ max-width: 94%; padding: 11px 12px; border-radius: 14px; }
 
@@ -621,21 +632,24 @@ body.chat--empty .composer__inputWrap{
     font-size: 1rem;
   }
 
- .tournament-name strong,
+  .tournament-name strong,
   .tournament-name a strong{
     font-size: 0.95rem;
     text-transform: uppercase;
   }
-  
+
   .tournament-details{
     font-size: 0.85rem;
     margin: 0.3rem 0;
-  } 
+  }
 
   .msg .actionsRow .btn{
     padding: 4px 10px;
     font-size: 11px;
   }
+
+  .chip-sep{ height: 16px; }
+  .chip--cat{ padding: 5px 8px; font-size: 12px; min-width: 28px; }
 }
 
 @media (max-width: 400px){

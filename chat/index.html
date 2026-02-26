@@ -3,43 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    <!-- PWA Meta Tags -->
     <meta name="description" content="Buscador de torneos de pádel. Dilo como lo dirías y te llevamos directo a inscribirte." />
     <meta name="theme-color" content="#0B0F19" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Padelia" />
-
     <script>
       if (location.protocol !== 'https:' && !location.hostname.includes('localhost')) {
         location.replace('https:' + location.href.substring(location.protocol.length));
       }
     </script>
-
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Manifest -->
     <link rel="manifest" href="./manifest.json" />
-    
-    <!-- Icons -->
     <link rel="icon" href="../assets/logo3.svg" />
     <link rel="apple-touch-icon" href="../assets/icon-192.png" />
-
     <title>Padelia — Buscar torneos</title>
-
     <link rel="stylesheet" href="../assets/palette-lima-azul.css" />
     <link rel="stylesheet" href="../assets/styles.css" />
     <link rel="stylesheet" href="./chat.css" />
     <script>
-      // Cache bust en desarrollo
       document.querySelector('link[href*="chat.css"]').href = `./chat.css?v=${Date.now()}`;
     </script>
-
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="module" src="./chat.js"></script>
   </head>
-
   <body>
     <header class="chatTop">
       <div class="chatTop__inner">
@@ -50,32 +37,30 @@
         </a>
         <a class="chatTop__link" href="../#como-funciona">Cómo funciona</a>
         <a class="chatTop__link" href="#" id="installLink">Instalar app</a>
-        
-        <!-- Botón instalar (solo visible si no está instalado) -->
-        <button id="installBtn" class="btn-install" hidden>
-          Instalar
-        </button>
+        <button id="installBtn" class="btn-install" hidden>Instalar</button>
       </div>
     </header>
-
     <main class="chatWrap">
       <section class="chat" aria-label="Buscador de torneos de pádel">
-        <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
-          <!-- Mensaje inicial -->
-        </div>
+        <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
       </section>
     </main>
-
     <footer class="composer" id="composer">
       <div id="quickFilters" class="quick-filters">
         <button class="chip" id="nearMeBtn">Cerca de mí</button>
         <button class="chip chip--time" data-value="este finde">Este finde</button>
         <button class="chip chip--time" data-value="próxima semana">Próxima semana</button>
         <button class="chip chip--time" data-value="este mes">Este mes</button>
+        <span class="chip-sep"></span>
         <button class="chip chip--genero" data-value="mixtos">Mixto</button>
         <button class="chip chip--genero" data-value="masculinos">Masculino</button>
         <button class="chip chip--genero" data-value="femeninos">Femenino</button>
-
+        <span class="chip-sep"></span>
+        <button class="chip chip--cat" data-value="1a">1ª</button>
+        <button class="chip chip--cat" data-value="2a">2ª</button>
+        <button class="chip chip--cat" data-value="3a">3ª</button>
+        <button class="chip chip--cat" data-value="4a">4ª</button>
+        <button class="chip chip--cat" data-value="5a">5ª</button>
       </div>
       <form id="form" class="composer__inner" autocomplete="off">
         <div class="composer__inputWrap">
@@ -92,8 +77,6 @@
         </button>
       </form>
     </footer>
-
-    <!-- Toast para iOS -->
     <div id="iosInstallToast" class="install-toast" hidden>
       <div class="install-toast__inner">
         <button class="install-toast__close" aria-label="Cerrar">✕</button>
@@ -102,80 +85,51 @@
         <p>2. Selecciona <strong>"Añadir a inicio"</strong></p>
       </div>
     </div>
-
     <script>
-      // Service Worker
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('../sw.js')
           .then(reg => console.log('SW registered'))
           .catch(err => console.log('SW registration failed', err));
       }
-
-      // PWA Installation
       let deferredPrompt;
       const installBtn = document.getElementById('installBtn');
       const installLink = document.getElementById('installLink');
       const iosToast = document.getElementById('iosInstallToast');
-
-      // Detectar si ya está instalado
-      const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
-                          window.navigator.standalone;
-
+      const isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
       if (isInstalled) {
-        // Ya instalada, ocultar link y botón
         if (installLink) installLink.style.display = 'none';
         if (installBtn) installBtn.hidden = true;
       } else {
-        // Android: Mostrar botón cuando el evento esté disponible
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
           deferredPrompt = e;
-          
-          // Mostrar botón
           installBtn.hidden = false;
-          
-          // Click en botón → mostrar prompt
           installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
               deferredPrompt.prompt();
               const { outcome } = await deferredPrompt.userChoice;
-              
-              if (outcome === 'accepted') {
-                installBtn.hidden = true;
-              }
+              if (outcome === 'accepted') installBtn.hidden = true;
               deferredPrompt = null;
             }
           });
         });
-
-        // Link "Instalar app" (siempre visible si no está instalada)
         if (installLink) {
           installLink.addEventListener('click', (e) => {
             e.preventDefault();
-            
             if (deferredPrompt) {
-              // Android: mostrar prompt nativo
               deferredPrompt.prompt();
             } else if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-              // iOS: mostrar toast
               iosToast.hidden = false;
             }
           });
         }
-
-        // Cerrar toast
         const closeBtn = iosToast.querySelector('.install-toast__close');
-        closeBtn.addEventListener('click', () => {
-          iosToast.hidden = true;
-        });
+        closeBtn.addEventListener('click', () => { iosToast.hidden = true; });
       }
-
-      // Cuando se instala, ocultar todo
       window.addEventListener('appinstalled', () => {
         if (installBtn) installBtn.hidden = true;
         if (installLink) installLink.style.display = 'none';
       });
     </script>
-
   </body>
 </html>
